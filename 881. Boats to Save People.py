@@ -1,7 +1,7 @@
 class Solution:
     def numRescueBoats(self, people: List[int], limit: int) -> int:
-        "two pointers approach"
-        
+        "two pointers approach and "
+        "sorting "
         people.sort(reverse = True)
         left = boats = 0
         right = len(people)-1
