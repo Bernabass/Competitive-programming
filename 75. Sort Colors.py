@@ -12,3 +12,7 @@ class Solution(object):
                     idx=j
             nums[idx]=nums[i]
             nums[i]=m
+
+
+
+            
