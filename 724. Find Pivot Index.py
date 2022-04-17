@@ -5,8 +5,12 @@ class Solution(object):
         :rtype: int
         """
         for i in range(len(nums)):
-            if nums[:i]==[] and sum(nums[:i])==sum(nums[i+1:len(nums)]):
+            if nums[:i]==[]:
                 sum(nums[:i])==0
-                return i
+            if sum(nums[:i])==sum(nums[i+1:len(nums)]):
+                    return i
         else:
             return -1
+            
+            
+        
