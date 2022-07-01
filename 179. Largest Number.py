@@ -1,12 +1,19 @@
-nums = [3,30,34,5,9]
-a=list(''.join(str(i) for i in nums))
-for i in range(len(a)):
-    m=a[i]
-    for j in range(i,len(a)):
-        if a[j]>=m:
-            m=a[j]
-            idx=j
-    a[idx]=a[i]
-    a[i]=m
-a=''.join(str(i) for i in a)
-print(a)
+class Solution:
+    def largestNumber(self, nums: List[int]) -> str:
+        if len(nums) == 1:
+            return str(nums[0])
+        
+        for i in range(len(nums)):
+            nums[i] = str(nums[i])
+        
+        for i in range(len(nums)):
+            for j in range(i+1,len(nums)):
+                if nums[j]+nums[i]>nums[i]+nums[j]:
+                    nums[i],nums[j] = nums[j],nums[i]
+                
+                    
+        output="".join(nums)
+        if output== ("0"*len(output)):
+            return "0"
+        else:
+            return output
