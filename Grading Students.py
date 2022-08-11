@@ -29,6 +29,7 @@ if __name__ == '__main__':
 
     grades_count = int(input().strip())
 
+
     grades = []
 
     for _ in range(grades_count):
