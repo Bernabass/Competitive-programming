@@ -1,16 +1,10 @@
 from collections import Counter
 import heapq
-words=["the","day","is","sunny","the","the","the","sunny","is","is"]
-k=4
-temp=Counter(words)
-out=[]
-final=[]
-print(temp)
-for i in temp:
-    temp[i]=-temp[i]
-    out.append([temp[i],i])
-heapq.heapify(out)
-print(out)
+nums = [3,2,1,5,6,4]
+k = 2
+for i in range(len(nums)):
+    nums[i]=-nums[i]
+heapq.heapify(nums)
 for j in range(k):
-    final.append(heapq.heappop(out)[1])
-print(final)
+    out=heapq.heappop(nums)
+print(-out)
