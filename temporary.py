@@ -1,13 +1,16 @@
 from collections import Counter
 import heapq
-nums = [4,1,-1,2,-1,2,3]
-k = 2
+words=["the","day","is","sunny","the","the","the","sunny","is","is"]
+k=4
+temp=Counter(words)
 out=[]
-count=Counter(nums)
-lis=list(zip(count.values(),count.keys()))
-heapq._heapify_max(lis)
-klargest=heapq.nlargest(k,lis)
-print(klargest)
-for i in range(k) :
-    out.append(klargest[i][1])
+final=[]
+print(temp)
+for i in temp:
+    temp[i]=-temp[i]
+    out.append([temp[i],i])
+heapq.heapify(out)
 print(out)
+for j in range(k):
+    final.append(heapq.heappop(out)[1])
+print(final)
