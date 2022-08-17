@@ -1,30 +1,24 @@
-from collections import Counter
-import heapq
-import math
-
-matrix=[[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]]
-k=5
-out=[]
-for i in matrix:
-    out=[*out,*i]
-heapq.heapify(out)
-for i in range(k-1):
-    heapq.heappop(out)
-print(out[0])
-print(sorted(out)[k-1])
-# n=len(matrix)
-# current_row=math.ceil(k/n)
-# temp=[]
-# temp.extend(matrix[current_row-1])
-# initial_idx=(current_row-1)*n
-# if current_row>1:
-#     initial_idx=(current_row-2)*n
-#     temp.extend(matrix[current_row-2])
-# if current_row<n:
-#     temp.extend(matrix[current_row])
-# print(temp)
-# heapq.heapify(temp)
-# for i in range(k-initial_idx-1):
-#     heapq.heappop(temp)
-# print(temp[0])
-
+def binary_search(arr,x):
+    low=0
+    high=len(arr)-1
+    mid=0
+    while low<=high:
+        mid=(low+high)//2
+        if arr[mid]<x:
+            low=mid+1
+        elif arr[mid] > x:
+            high=mid-1
+        else:
+            return mid
+    return -1
+# Test array
+arr = [ 2, 3, 4, 10, 40 ]
+x = 9
+ 
+# Function call
+result = binary_search(arr, x)
+ 
+if result != -1:
+    print("Element is present at index", str(result))
+else:
+    print("Element is not present in array")
