@@ -1,24 +1,20 @@
-def binary_search(arr,x):
+grid = [[3,2],[1,0]]
+count=0
+n=len(grid[0])
+for i in grid:
     low=0
-    high=len(arr)-1
-    mid=0
+    high=n-1
     while low<=high:
         mid=(low+high)//2
-        if arr[mid]<x:
+        print(low,high,mid,count,i)
+        if high==low==mid and i[mid]<0:
+            negatives=n-mid
+            count+=negatives
+            break
+        elif i[mid]>=0:
             low=mid+1
-        elif arr[mid] > x:
-            high=mid-1
         else:
-            return mid
-    return -1
-# Test array
-arr = [ 2, 3, 4, 10, 40 ]
-x = 9
- 
-# Function call
-result = binary_search(arr, x)
- 
-if result != -1:
-    print("Element is present at index", str(result))
-else:
-    print("Element is not present in array")
+            high=mid
+    low=0
+    high=n-1
+print(count)
