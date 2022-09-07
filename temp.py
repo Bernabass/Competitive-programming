@@ -1,32 +1,25 @@
-nums =[3,1]
-target=1
-low=0
-high=len(nums)-1
-zeroth=nums[0]
-while low<high:
+time =[1]
+totalTrips = 4
+def adder(time,num):
+    count=0
+    for i in range(len(time)):
+        count+=(num//time[i])    
+    return count
+low=1
+high=sum(time)+totalTrips
+while low<=high:
     mid=(low+high)//2
-    if nums[mid]>=zeroth:
+    if adder(time,mid)>totalTrips:
+        high=mid-1
+    elif adder(time,mid)<totalTrips:
         low=mid+1
     else:
-        high=mid
-print(low)
-def binary_search(arr, x,left,right):
-    mid = 0
-    while left <= right:
-        mid = (left + right) // 2
-        if arr[mid] < x:
-            left = mid + 1
-        elif arr[mid] > x:
-            right = mid - 1
-        else:
-            return mid
-    return -1
-if nums[low]<zeroth:
-    if zeroth<=target<=nums[low-1]:
-        print(binary_search(nums,target,0,low-1))
-        exit()
-    else:
-        print(binary_search(nums,target,low,len(nums)-1))
-        exit()
+        if mid-1<=0:
+            print(mid)
+            break
+        if adder(time,mid-1)!=totalTrips:
+            print(mid)
+            break
+        high=mid-1
 else:
-    print(binary_search(nums,target,0,len(nums)-1))
+    print(low)
