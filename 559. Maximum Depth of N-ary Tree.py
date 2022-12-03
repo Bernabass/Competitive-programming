@@ -12,7 +12,6 @@ class Solution:
         if root is None:
             return 0
         res = [[root.val]]
-        temp = [ ]
         count = 0
         while level:
             count += 1
