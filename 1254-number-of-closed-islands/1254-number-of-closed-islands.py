@@ -6,21 +6,19 @@ class Solution:
         count = 0
         def bfs(node):
             node = [node]
-            changed = set()
+            check = True
             while node:
                 new = []
                 for i,j in node:
                     for x,y in neighbours:
                         if 0 <= i+x < m and 0 <= j+y < n:
-                            if (i+x,j+y) not in changed and grid[i+x][j+y] == 0:
+                            if grid[i+x][j+y] == 0:
                                 new.append((i+x,j+y))
-                                changed.add((i+x,j+y))
+                                grid[i+x][j+y] = 1
                         else:
-                            return False
+                            check = False
                 node = new
-            for a,b in changed:
-                grid[a][b] = 1
-            return True
+            return check
         for r in range(m):
             for c in range(n):
                 if grid[r][c] == 0:
