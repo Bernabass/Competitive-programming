@@ -28,6 +28,7 @@ print(int(push+n-m))
 #     print(n-m)
 # else:
 #     push=0
+
 #     while n is not m:
 #         if abs(m-2*(n-1))<=abs(m-2*n):
 #             n-= 1 
