@@ -20,5 +20,6 @@ for i in range(T):
                 left += 1
             else:
                 print('No')
-                exit()
-    print('Yes')
+                break
+    else:
+        print('Yes')
