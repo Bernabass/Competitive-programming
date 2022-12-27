@@ -23,3 +23,4 @@ for i in range(T):
                 break
     else:
         print('Yes')
+    
