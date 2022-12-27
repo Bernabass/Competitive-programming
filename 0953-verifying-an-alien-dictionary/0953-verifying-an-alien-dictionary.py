@@ -17,4 +17,4 @@ class Solution:
                 elif alphabet[second[count]] < alphabet[first[count]]:
                     return False
                 count += 1
-        return True    
+        return True
