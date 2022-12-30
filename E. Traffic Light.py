@@ -5,12 +5,14 @@ for _ in range(t):
     s = input()
     new = s + s
     count = 0
-    left = 0
-    right = 0
-    out = 0
-    while :
-        if s[left] != start:
+    left , right = 0 , 0
+    while left < len(s):
+        if new[left] != start:
             left += 1
-            right +=1
+            right += 1
         else:
-            
+            while new[right] != "g":
+                right += 1
+            count = max(count, right - left)
+            left , right  = right + 1 , right + 1
+    print(count)
