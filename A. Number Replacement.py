@@ -17,4 +17,4 @@ for _ in range(t):
             break
         idx += 1
     else:
-        print("YES")
+        print("YES") 
