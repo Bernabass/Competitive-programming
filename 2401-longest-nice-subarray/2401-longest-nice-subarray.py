@@ -19,5 +19,5 @@ class Solution:
                         break
                     
             right += 1
-            res = max(res,size)
+            res = max(res,right - left)
         return res
