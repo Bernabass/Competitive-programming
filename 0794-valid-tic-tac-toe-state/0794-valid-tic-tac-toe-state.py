@@ -25,5 +25,4 @@ class Solution:
             return freq["X"] - freq["O"] == 1
         elif winner == {"O"}:
             return freq["X"] - freq["O"] == 0
-        else:
-            return (freq["X"] - freq["O"]) in {0,1}
+        return True
