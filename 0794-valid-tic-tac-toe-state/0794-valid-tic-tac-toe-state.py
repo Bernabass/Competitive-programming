@@ -6,18 +6,13 @@ class Solution:
             return False
         
         for row in range(3):
-            nth_row, nth_col = set(), set()
-            for col in range(3):
-                nth_row.add(board[row][col])
-                nth_col.add(board[col][row])
-           
-            if len(nth_row) == 1:
-                winner |= nth_row
-            if len(nth_col) == 1:
-                winner |= nth_col
-            
+            if (board[row][0] == board[row][1] == board[row][2]):
+                winner.add(board[row][0])
+            if (board[0][row] == board[1][row] == board[2][row]):
+                winner.add(board[0][row])     
+   
         if (board[0][0] == board[1][1] == board[2][2]) or (board[2][0] == board[1][1] == board[0][2]):
-            winner |= {board[1][1]}
+            winner.add(board[1][1])
         
         if len(winner) > 1:
             return False
