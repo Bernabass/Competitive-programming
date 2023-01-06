@@ -4,7 +4,7 @@ class Solution:
         nums.sort(reverse = True)
         total = left = right = size = 0
         curr_val = nums[left]
-        while right < n and left < n:
+        while right < n:
             total += nums[right]
             pos = (right - left + 1)*curr_val - total
             if pos <= k:
