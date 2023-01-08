@@ -1,6 +1,5 @@
 class Solution:
     def maxPoints(self, points: List[List[int]]) -> int:
-        points = list(map(tuple,points))
         n = len(points)
         slopes = defaultdict(lambda:1)
         for i in range(n):
