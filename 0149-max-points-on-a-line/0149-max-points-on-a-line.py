@@ -7,12 +7,7 @@ class Solution:
             check = slopes.copy()
             for j in range(i+1,n):
                 x2, y2 = points[j][0], points[j][1]
-                if x2 - x1 == 0 and y2 - y1 == 0:
-                    if "v"+str(y1) not in check:
-                        slopes["v"+str(y1)] += 1
-                    if "h"+str(x1) not in check:   
-                        slopes["h"+str(x1)] += 1
-                elif x2 - x1 == 0 and "v"+str(y1) not in check:
+                if x2 - x1 == 0 and "v"+str(y1) not in check:
                     slopes["v"+str(y1)] += 1
                 elif y2 - y1 == 0 and "h"+str(x1) not in check:
                     slopes["h"+str(x1)] += 1
