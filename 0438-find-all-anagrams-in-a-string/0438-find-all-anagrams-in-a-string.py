@@ -4,18 +4,17 @@ class Solution:
         window_size = len(p)
         if window_size > n:
             return []
-        check = Counter(p)
-        window = deque()
-        res = []
+        anagram = Counter(p)
+        window, res = defaultdict(int), []
         for _ in range(window_size):
-            window.append(s[_])
-        if Counter(window) == check:
-            res.append(0)
+            window[s[_]] += 1
+            if window == anagram:
+                res.append(0)
     
-        for i in range(window_size,n):
-            window.popleft()
-            window.append(s[i])
-            if Counter(window) == check:
-                res.append(i-window_size+1)
+        for idx in range(window_size,n):
+            window[s[idx-window_size]] -= 1
+            window[s[idx]] += 1
+            if Counter(window) == anagram:
+                res.append(idx-window_size+1)
         
         return res
