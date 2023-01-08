@@ -6,15 +6,18 @@ class Solution:
             return []
         anagram = Counter(p)
         window, res = defaultdict(int), []
-        for _ in range(window_size):
-            window[s[_]] += 1
+        for i in range(window_size):
+            window[s[i]] += 1
             if window == anagram:
                 res.append(0)
+        
     
         for idx in range(window_size,n):
             window[s[idx-window_size]] -= 1
+            if window[s[idx-window_size]] <= 0:
+                window.pop(s[idx-window_size])
             window[s[idx]] += 1
-            if Counter(window) == anagram:
+            if window == anagram:
                 res.append(idx-window_size+1)
         
         return res
