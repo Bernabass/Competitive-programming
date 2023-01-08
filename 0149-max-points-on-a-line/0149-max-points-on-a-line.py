@@ -2,6 +2,7 @@ class Solution:
     def maxPoints(self, points: List[List[int]]) -> int:
         n = len(points)
         slopes = defaultdict(lambda:1)
+        slopes["test"] = 1
         for i in range(n):
             x1, y1 = points[i][0], points[i][1]
             check = slopes.copy()
@@ -16,7 +17,4 @@ class Solution:
                     intercept = y1 - curr_slope* x1
                     if (curr_slope,intercept) not in check:
                         slopes[(curr_slope,intercept)] += 1  
-        if not slopes.values():
-            return 1
         return max(slopes.values())
-        
