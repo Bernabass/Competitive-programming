@@ -1,22 +1,20 @@
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        s, p = s2, s1
-        n = len(s)
-        window_size = len(p)
-        res = []
-        anagram, window = Counter(p), Counter(s[:window_size])
-        if window == anagram:
-            res.append(0)
+        n = len(s2)
+        window_size = len(s1)
+        permuation, window = Counter(s1), Counter(s2[:window_size])
+        if window == permuation:
+            return True
         
         for idx in range(window_size, n):
-            front, back = s[idx-window_size], s[idx]
+            front, back = s2[idx-window_size], s2[idx]
             window[front] -= 1
             if window[front] <= 0:
                 window.pop(front)
             window[back] += 1
             
-            if window == anagram:
-                res.append(idx - window_size + 1)
+            if window == permuation:
+                return True
         
-        return res
+        return False
         
