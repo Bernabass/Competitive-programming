@@ -8,7 +8,6 @@ class DataStream:
         
 
     def consec(self, num: int) -> bool:
-        self.stream.append(num)
         if num == self.value:
             self.count += 1
         else:
