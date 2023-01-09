@@ -16,10 +16,8 @@ class DataStream:
         if len(self.stream) >= self.parse:
             if self.count >= self.parse:
                 return True
-            else:
-                return False
-        else:
             return False
+        return False
         
 
 
