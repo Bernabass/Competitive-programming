@@ -16,7 +16,5 @@ class Solution:
             return ans
         tree1 = dfs(p,[])
         tree2 = dfs(q,[])
-        print(tree1)
-        print(tree2)
         
         return tree1 == tree2
