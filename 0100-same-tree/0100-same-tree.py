@@ -14,7 +14,6 @@ class Solution:
             dfs(node.right,ans)
             ans.append(node.val)
             return ans
-        tree1 = dfs(p,[])
-        tree2 = dfs(q,[])
-        
+    
+        tree1, tree2 = dfs(p,[]), dfs(q,[])
         return tree1 == tree2
