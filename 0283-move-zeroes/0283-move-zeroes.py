@@ -3,9 +3,9 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        priority = deque()
+        priority, n = deque(), len(nums)
         
-        for idx in range(len(nums)):
+        for idx in range(n):
             if not nums[idx]:
                 priority.append(idx)
             else:
