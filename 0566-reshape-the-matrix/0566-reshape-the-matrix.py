@@ -4,17 +4,12 @@ class Solution:
         if m*n != r*c:
             return mat
         
-        res, count = [], 0
-        temp = []
-        for row in range(m):
-            for col in range(n):
-                if count == c :
-                    res.append(temp)
-                    count = 0
-                    temp = []
-                count += 1
-                temp.append(mat[row][col])
+        res = [[0]*c for _ in range(r)]
+    
+        for x, row in enumerate(mat):
+            for y, val in enumerate(row):
+                count = (x)*n + y
+                i, j = count//c, count % c
+                res[i][j] += val
                 
-        res.append(temp)
-        
-        return res
+        return res 
