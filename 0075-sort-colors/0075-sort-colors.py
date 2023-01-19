@@ -3,10 +3,8 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        
-        left, right = 0, len(nums) - 1 
-        ptr = 0
-        
+        left = ptr = 0
+        right = len(nums) - 1 
         while ptr <= right:
             if nums[ptr] == 0:
                 nums[ptr], nums[left] = nums[left], nums[ptr]
