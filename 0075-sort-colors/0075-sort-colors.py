@@ -3,8 +3,19 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        n = len(nums)
-        for _ in range(n):
-            for i in range(1,n):
-                if nums[i] < nums[i-1]:
-                    nums[i], nums[i-1] = nums[i-1], nums[i]
+        
+        left, right = 0, len(nums) - 1 
+        ptr = 0
+        
+        while ptr <= right:
+            if nums[ptr] == 0:
+                nums[ptr], nums[left] = nums[left], nums[ptr]
+                left += 1
+                ptr += 1
+                
+            elif nums[ptr] == 2:
+                nums[ptr], nums[right] = nums[right], nums[ptr]
+                right -= 1
+                
+            else: 
+                ptr += 1
