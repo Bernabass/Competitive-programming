@@ -3,17 +3,26 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        left = ptr = 0
-        right = len(nums) - 1 
-        while ptr <= right:
-            if nums[ptr] == 0:
-                nums[ptr], nums[left] = nums[left], nums[ptr]
-                left += 1
-                ptr += 1
+        red = white = blue = 0
+        N = len(nums)
+        
+        for val in nums:
+            if not val:
+                red += 1
+            elif val == 1:
+                white += 1
+            else:
+                blue += 1
                 
-            elif nums[ptr] == 2:
-                nums[ptr], nums[right] = nums[right], nums[ptr]
-                right -= 1
+        for idx in range(N):
+            if red:
+                nums[idx] = 0
+                red -= 1
                 
-            else: 
-                ptr += 1
+            elif white:
+                nums[idx] = 1
+                white -= 1
+            
+            else:
+                nums[idx] = 2
+                blue -= 1          
