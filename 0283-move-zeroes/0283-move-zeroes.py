@@ -4,18 +4,12 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         N = len(nums)
-        left = right = 0
+        left = 0
         
-        while right < N:
+        for right in range(N):
             if nums[right]:
                 nums[right], nums[left] = nums[left], nums[right]
                 left += 1
-            right += 1
-        
-        
-        
-        
-        
         
 #         priority, n = deque(), len(nums)
         
