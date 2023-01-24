@@ -7,5 +7,4 @@ class Solution:
                 if nums[j]+nums[i]>nums[i]+nums[j]:
                     nums[i],nums[j] = nums[j],nums[i]
                       
-        output="".join(nums).lstrip("0")
-        return output or "0"
+        return "".join(nums).lstrip("0") or "0"
