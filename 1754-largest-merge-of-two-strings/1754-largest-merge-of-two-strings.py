@@ -11,4 +11,4 @@ class Solution:
         
         res.extend(word1)
         res.extend(word2)
-        return "".join(res)           
+        return "".join(res)
