@@ -1,37 +1,14 @@
 class Solution:
     def largestMerge(self, word1: str, word2: str) -> str:
-        arr1 = list(word1)
-        arr2 = list(word2)
-        n, m = len(arr1), len(arr2)
-        res, ans = [], []
-        first = second = 0
-
-        if n < m:
-            arr1.extend(["@"]*(m-n))
-        else:
-            arr2.extend(["@"]*(n-m))
-        arr1.append("@")
-        arr2.append("@")
+        word1, word2 = deque(word1), deque(word2)
+        res = []
         
-        new_len  = len(arr1)
-        while first < new_len and second < new_len:
-            if arr1[first] > arr2[second]:
-                res.append(arr1[first])
-                first += 1
-            elif arr1[first] < arr2[second]:
-                res.append(arr2[second])
-                second += 1
-                
+        while word1 and word2:
+            if word1 > word2:
+                res.append(word1.popleft())
             else:
-                if arr1[first:] >= arr2[second:]:
-                    res.append(arr1[first])
-                    first += 1
-                else:
-                    res.append(arr2[second])
-                    second += 1
-        for num in res:
-            if num == "@":
-                break
-            ans.append(num)
-
-        return "".join(map(str,ans))
+                res.append(word2.popleft())
+        
+        res.extend(word1)
+        res.extend(word2)
+        return "".join(res)           
