@@ -1,9 +1,7 @@
 class Solution:
     def partitionLabels(self, s: str) -> List[int]:
         def merge_intervals(intervals):
-            intervals.sort()
-            res = []
-            res.append(intervals[0])
+            res = [intervals[0]]
             for i in range(1,len(intervals)):
                 current = intervals[i]
                 if current[0] < res[-1][1]:
@@ -11,16 +9,18 @@ class Solution:
                 else:
                     res.append(current)
             return res
-        
-        uniques = set(s)
-        intervals = []
-        
-        for i in uniques:
-            intervals.append([s.index(i),s.rfind(i)])
+    
+        char_range = defaultdict(list)
+        for idx, char in enumerate(s):
+            if char not in char_range:
+                char_range[char] = [idx,idx]
+            else:
+                char_range[char][1] = idx
+    
+        intervals = list(char_range.values())
+        del char_range
+        merged = merge_intervals(intervals)
+        for idx, val in enumerate(merged):
+            merged[idx] = val[1] - val[0] + 1
             
-        res = merge_intervals(intervals)
-        
-        for idx, merged in enumerate(res):
-            res[idx] = merged[1] - merged[0] + 1
-            
-        return res
+        return merged
