@@ -36,7 +36,6 @@ class MyLinkedList:
         else:
             position = self.head
             inserted = Node(val)
-            print(index)
             for _ in range(index-1):
                 position = position.next
             
