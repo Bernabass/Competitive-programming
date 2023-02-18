@@ -8,9 +8,7 @@ class Solution:
             if players[-1] <= trainers[-1]:
                 max_match += 1
                 players.pop()
-                trainers.pop()
                 
-            else:
-                trainers.pop()
+            trainers.pop()
                  
         return max_match
