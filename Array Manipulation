@@ -1,0 +1,59 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'arrayManipulation' function below.
+#
+# The function is expected to return a LONG_INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER n
+#  2. 2D_INTEGER_ARRAY queries
+#
+
+def arrayManipulation(n, queries):
+    # initialize a list to store the values to be added at each index
+    values = [0] * n
+    
+    # loop through each query and update the list
+    for query in queries:
+        left, right = query[0] - 1, query[1] - 1
+        val = query[2]
+        if 0 <= left < n:
+            values[left] += val
+        if right < n - 1:
+            values[right+1] += -val
+    
+    # loop through the list and calculate the maximum value in the array
+    max_val = 0
+    running_total = 0
+    for i in range(n):
+        running_total += values[i]
+        if running_total > max_val:
+            max_val = running_total
+            
+    return max_val
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    first_multiple_input = input().rstrip().split()
+
+    n = int(first_multiple_input[0])
+
+    m = int(first_multiple_input[1])
+
+    queries = []
+
+    for _ in range(m):
+        queries.append(list(map(int, input().rstrip().split())))
+
+    result = arrayManipulation(n, queries)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
