@@ -40,6 +40,4 @@ class Solution:
             left, right = req[0], req[1]
             ans += prefix_sum[right+1] - prefix_sum[left]
             
-        return ans % (10**9 + 7)
-            
-            
+        return ans % (10**9 + 7)        
