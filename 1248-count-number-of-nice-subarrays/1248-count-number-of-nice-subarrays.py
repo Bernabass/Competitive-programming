@@ -1,19 +1,15 @@
 class Solution:
     def numberOfSubarrays(self, nums: List[int], k: int) -> int:
-        prefix_odds = [0]*len(nums)
-        nice_subArrays = 0
+        prefix_odd = nice_subArrays = 0
+        prev_prefix_odds = defaultdict(int)
+        prev_prefix_odds[0] += 1
         
-        for idx, num in enumerate(nums):
-            prefix_odds[idx] = prefix_odds[idx-1] + num % 2
+        for num in nums:
+            prefix_odd += num % 2
+            if prefix_odd - k in prev_prefix_odds:
+                nice_subArrays += prev_prefix_odds[prefix_odd - k]
                 
-        freq = Counter(prefix_odds)
-        freq[0] = freq.get(0,0) + 1
-
-        
-        for each in prefix_odds:
-            if (each - k) in freq:
-                nice_subArrays += freq[each - k]
-                
+            prev_prefix_odds[prefix_odd] += 1
+            
         return nice_subArrays
-                
                                   
