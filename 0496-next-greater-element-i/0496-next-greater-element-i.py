@@ -1,23 +1,19 @@
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        next_greater = [-1]*len(nums2)
-        n1, n2 = len(nums1), len(nums2)
-        stack = [nums2[-1]]
+        stack = [nums2[0]]
+        next_greater = {}
         
-        for i in range(n2 - 2, -1, -1):
-            while stack and stack[-1] <= nums2[i]:
-                stack.pop()
-
-            if stack:
-                next_greater[i] = stack[-1]
+        for idx, curr_element in enumerate(nums2, 1):  
+            while stack and curr_element > stack[-1]:
+                next_greater[stack.pop()] = curr_element
                 
-            stack.append(nums2[i])
-                    
-                    
-        info = dict(zip(nums2, next_greater))
-                    
-        for idx, val in enumerate(nums1):
-            nums1[idx] = info[val]
+            stack.append(curr_element)
             
+        for idx, num in enumerate(nums1):
+            if num in next_greater:
+                nums1[idx] = next_greater[num]
+                
+            else:
+                nums1[idx] = -1
+                
         return nums1
-        
