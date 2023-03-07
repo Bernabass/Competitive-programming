@@ -13,13 +13,14 @@ class Solution:
             if durations[i] > durations[i-1]:
                 durations[i-1] = durations[i]
                 
-        stack = []
-        for i in range(len(durations)-1, -1, -1):
-            while stack and durations[stack[-1]] > durations[i]:
-                durations[i] = durations[stack[-1]] 
-
-            stack.append(i)
+        previous_greater = durations[-1]
+        for i in range(len(durations)-2, -1, -1):
+            if durations[i] < previous_greater:
+                durations[i] = previous_greater
+                
+            else:
+                previous_greater = durations[i]
           
-        return len(set(durations))
+        return len(set(durations))  
         
         
