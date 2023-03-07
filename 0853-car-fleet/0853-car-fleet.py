@@ -7,9 +7,7 @@ class Solution:
         info.sort()
         durations = []
         for data in info:
-            temp = time(data[0], data[1])
-  
-            durations.append(temp)
+            durations.append(time(data[0], data[1]))
           
         for i in range(1, len(durations)):
             if durations[i] > durations[i-1]:
@@ -19,7 +17,7 @@ class Solution:
         for i in range(len(durations)-1, -1, -1):
             while stack and durations[stack[-1]] > durations[i]:
                 durations[i] = durations[stack[-1]] 
-                
+
             stack.append(i)
           
         return len(set(durations))
