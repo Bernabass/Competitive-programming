@@ -6,11 +6,9 @@
 #         self.right = right
 class Solution:
     def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
-        
         def choose(node_path, val_path, node):
             prev = node_path.copy()
             val_prev = val_path.copy()
-            prev.append("->")
             prev.append(node)
             
             
