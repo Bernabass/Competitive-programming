@@ -1,17 +1,18 @@
 class Solution:
     def getRow(self, rowIndex: int) -> List[int]:
-        
-        level = [1]
-        
-        while rowIndex:
-            next_level = [1]
+        ans, seen = [], defaultdict(int)
+        def get_value(row, col):
+            if (row, col) in seen:
+                return seen[(row, col)]
+            if row == col or not col:
+                return 1
             
-            for i in range(1, len(level)):
-                next_level.append(level[i]+level[i-1])
-                
-                
-            next_level.append(1)
-            level = next_level
-            rowIndex -= 1
+            ans = get_value(row-1, col-1) + get_value(row-1, col)
+            seen[(row, col)] += ans
             
-        return level
+            return ans
+        
+        for i in range(rowIndex+1):
+            ans.append(get_value(rowIndex, i))
+            
+        return ans
