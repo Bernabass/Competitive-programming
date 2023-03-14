@@ -10,8 +10,7 @@ class Solution:
         
         def make_tree(node, arr):
             if not arr:
-                node = None
-                return node
+                return None
                 
             curr_max = max(arr)
             left = arr[:arr.index(curr_max)]
