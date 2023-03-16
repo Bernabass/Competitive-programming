@@ -23,6 +23,5 @@ class Solution:
                         ans.append(curr_node)
                         
             return ans
-                        
+               
         return make_tree(list(range(1,n+1)))
-                    
