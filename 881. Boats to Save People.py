@@ -14,4 +14,4 @@ class Solution:
             boats += 1 
         return boats
     
-    "in another"
+    "two pointers approach"
