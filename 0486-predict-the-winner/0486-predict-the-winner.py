@@ -5,6 +5,8 @@ class Solution:
         memo = defaultdict(list)
         
         def pick(start, end):
+            
+            
             if start == end:
                 return 0, 0
             
@@ -54,8 +56,6 @@ class Solution:
                 
             else:
                 picked = pick(start, end)
-                if end > start:
-                    memo[temp] = picked
                 ptr = picked[0]
             
             if start == ptr:
@@ -70,8 +70,6 @@ class Solution:
                 
             else:
                 picked = pick(start, end)
-                if end > start:
-                    memo[temp] = picked
                 right_sum = right + picked[1]
                 
             if left_sum > right_sum: 
