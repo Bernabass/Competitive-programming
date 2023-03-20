@@ -6,7 +6,6 @@ class Solution:
         
         def pick(start, end):
             
-            
             if start == end:
                 return 0, 0
             
@@ -24,9 +23,6 @@ class Solution:
                 
             else:
                 picked = pick(start, end)
-                if end > start:
-                    memo[temp] = picked
-                    
                 ptr = picked[0]
             
             if start == ptr:
@@ -41,9 +37,6 @@ class Solution:
                 
             else:
                 picked = pick(start, end)
-                if end > start:
-                    memo[temp] = picked
-                    
                 left_sum = left + picked[1]
              
             start, end = bound
