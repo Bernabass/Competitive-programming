@@ -17,11 +17,11 @@ class Solution:
             seen = [False]*(v+1)
             graph = make(v, edges)
             dist = []
-            queue = [1]
+            queue = deque([1])
             ans = float("inf")
             
             while queue:
-                node = queue.pop(0)
+                node = queue.popleft()
                 if seen[node] == True:
                     continue
                 seen[node] = True
