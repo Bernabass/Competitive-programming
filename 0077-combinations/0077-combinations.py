@@ -1,17 +1,21 @@
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
-        res = []
-        start = 1
-        end, depth = n + 1, k
+        ans = []
         
-        def merge(start, end, depth, ansX):
-            if not depth:
-                res.append(ansX)
+        def back_track(start, depth, pos_ans):
+        
+            if depth == k:
+                ans.append(pos_ans.copy())
                 return
-
-            for i in range(start, end):
-                merge(i+1, end, depth-1, ansX + (i,))
-
-        merge(start, end, depth, ())
+               
+    
+            for curr in range(start, n+1):
+                pos_ans.append(curr)
+                back_track(curr+1, depth + 1, pos_ans)
+                pos_ans.pop()
+                
+            return
         
-        return res
+        back_track(1, 0, [])
+        
+        return ans
