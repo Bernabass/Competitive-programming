@@ -6,16 +6,24 @@
 
 class Solution:
     def pairSum(self, head: Optional[ListNode]) -> int:
-        arr = []
-        dummy = head
-        while dummy:
-            arr.append(dummy.val)
-            dummy = dummy.next
-        
-        ans, n = 0, len(arr)
 
-        for idx in range(n // 2):
-            ans = max(ans, arr[idx] + arr[n-idx-1])
+        ans = 0
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            
+        node = None
+        while slow:
+            next_node = slow.next
+            slow.next = node
+            node = slow
+            slow = next_node
+        
+        while node:
+            ans = max(ans, node.val + head.val)
+            head = head.next
+            node = node.next
             
         return ans
         
