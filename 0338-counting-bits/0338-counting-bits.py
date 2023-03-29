@@ -4,9 +4,9 @@ class Solution:
         
         for i in range(n+1):
             org = i
-            while i:
-                if i % 2:
-                    ans[org] += 1
-                i //= 2
+            if i % 2:
+                ans[org] += 1
+            i //= 2
+            ans[org] += ans[i]
                 
         return ans
