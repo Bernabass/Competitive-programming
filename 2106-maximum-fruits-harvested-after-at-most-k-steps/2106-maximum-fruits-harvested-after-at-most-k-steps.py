@@ -1,7 +1,6 @@
 class Solution:
     def maxTotalFruits(self, fruits: List[List[int]], startPos: int, k: int) -> int:
-        width = 2*k + 1
-        org = [0]*width
+        org = [0]*(2*k + 1)
         limit = [startPos-k, startPos+k]
         offset = startPos - k
         
@@ -18,14 +17,9 @@ class Solution:
         def cover(arr, steps, back):
             start = len(arr) // 2
             allowed = steps
-
-            if back:
-                left = idx = steps
-                
-            else:
-                right = idx = steps
-
-            while 0 <= idx < width and steps >= 0:
+            (left, right, idx) = ((steps, 0, steps) if back else (0, steps, steps))
+            
+            while 0 <= idx < 2*k + 1 and steps >= 0:
                 steps = allowed
                 if back:
                     steps -= start - left 
@@ -35,14 +29,7 @@ class Solution:
                     left = idx = right - steps
                 
                 max_harvest[0] = max(max_harvest[0], prefix_sum[right]-prefix_sum[left]+org[left])
-
-                if back:
-                    left -= 1
-                    idx -= 1
-                else:
-                    right += 1
-                    idx += 1
-
+                left -= back; right += (not back); idx -= (1 if back else -1)
             return
         
         cover(org, k, 1)
