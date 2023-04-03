@@ -11,6 +11,7 @@ class Solution:
             else:
                 left += 1
                 
-            boats += 1   
+            boats += 1 
             
         return boats
+    
