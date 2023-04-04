@@ -1,14 +1,17 @@
 class Solution:
     def restoreIpAddresses(self, s: str) -> List[str]:
         n = len(s)
+        if n > 12:
+            return []
+        
         ans = set()
         
         def back_track(start, prev):
             if start == n:
                 if len(prev) == 4:
                     ans.add(".".join(prev))
+                    
                 return
-            
             
             for i in range(start, n):
                 if len(prev) < 3:
@@ -28,7 +31,7 @@ class Solution:
                     prev.pop()
                     
                 else:
-                    break
+                    return
                     
             return
         
