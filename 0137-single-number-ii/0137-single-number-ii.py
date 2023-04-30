@@ -1,8 +1,12 @@
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
-        a = b = 0
-        for num in nums:
-            a = (num ^ a) & (~b)
-            b = (num ^ b) & (~a)
+        ones = twos = 0
 
-        return a
+        for num in nums:
+            twos = twos | (ones & num)
+            ones = ones ^ num
+            num = ~(ones & twos)
+            ones &= num
+            twos &= num
+            
+        return ones
