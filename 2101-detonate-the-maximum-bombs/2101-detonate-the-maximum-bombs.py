@@ -1,6 +1,5 @@
 class Solution:
     def maximumDetonation(self, bombs: List[List[int]]) -> int:
-        
         GRAPH = defaultdict(list)
         max_bombs = 1
         
@@ -16,27 +15,19 @@ class Solution:
 
                 if dist <= r2:
                     GRAPH[j].append(i)
-        
-        memo = defaultdict(int)
-        
+               
         def dfs(node, seen):
             if node in seen:
                 return 0
-            
-            # if node in memo:
-            #     return memo[node]
             
             ans = 1
             seen.add(node)
             for adj in GRAPH[node]:
                 ans += dfs(adj, seen)
                 
-            # memo[node] = ans
-                
             return ans
         
-        for node in range(len(bombs)):
-            if node in GRAPH:
-                max_bombs = max(max_bombs, dfs(node, set()))
+        for node in list(GRAPH.keys()):
+            max_bombs = max(max_bombs, dfs(node, set()))
             
         return max_bombs
