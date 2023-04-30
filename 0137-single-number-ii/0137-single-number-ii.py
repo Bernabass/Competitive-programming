@@ -3,10 +3,10 @@ class Solution:
         ones = twos = 0
 
         for num in nums:
-            twos = twos | (ones & num)
-            ones = ones ^ num
-            num = ~(ones & twos)
-            ones &= num
-            twos &= num
+            twos |= ones & num
+            ones ^= num
+            common_bits = ~(ones & twos)
+            ones &= common_bits
+            twos &= common_bits
             
         return ones
