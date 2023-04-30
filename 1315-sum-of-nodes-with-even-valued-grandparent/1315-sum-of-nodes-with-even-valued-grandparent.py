@@ -6,26 +6,29 @@
 #         self.right = right
 class Solution:
     def sumEvenGrandparent(self, root: TreeNode) -> int:
-        info = defaultdict(int)
-        res = [0]
         
-        def dfs(node):
-            if not node:
-                return 
+        level = [[False, False, root]]
+        even_sum = 0
+        
+        while level:
+            next_level = []
             
-            if node.left:
-                info[node] += node.left.val
+            for grand_parent, parent, node in level:
+                info = [parent, False, node.left]
                 
-            if node.right:
-                info[node] += node.right.val
-                
-            dfs(node.left)
-            dfs(node.right)
+                if grand_parent:
+                    even_sum += node.val
             
-            if not(node.val % 2):
-                res[0] += info[node.left] + info[node.right]
-                
-            return 
-             
-        dfs(root)
-        return res[0]
+                if not (node.val % 2):
+                    info[1] = True
+                     
+                if node.left:
+                    next_level.append(info.copy())
+                    
+                if node.right:
+                    info[2] = node.right
+                    next_level.append(info)
+                    
+            level = next_level
+            
+        return even_sum
