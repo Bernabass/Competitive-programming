@@ -1,12 +1,11 @@
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
-        ones = twos = 0
-
+        x = y = 0
+        
+        
         for num in nums:
-            twos |= ones & num
-            ones ^= num
-            common_bits = ~(ones & twos)
-            ones &= common_bits
-            twos &= common_bits
+            a = (x & ~y & ~num) | (~x & y & num)
+            b = (~x & ~y & num) | (~x & y & ~num)
+            x, y = a, b
             
-        return ones
+        return x | y
