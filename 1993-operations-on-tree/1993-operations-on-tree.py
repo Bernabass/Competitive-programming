@@ -30,7 +30,7 @@ class LockingTree:
             self.locked[num] = 0
                 
         for adj in self.GRAPH[num]:
-            flag = flag | self.dfs(adj)
+            flag |= self.dfs(adj)
             
         return flag
             
@@ -50,8 +50,8 @@ class LockingTree:
             return False
         
         if self.dfs(num):
-            self.locked[num] = user
             
+            self.locked[num] = user
             return True
         
         return False
