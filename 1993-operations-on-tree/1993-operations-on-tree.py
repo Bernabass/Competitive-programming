@@ -2,56 +2,55 @@ class LockingTree:
 
     def __init__(self, parent: List[int]):
         self.parent = parent
-        self.GRAPH, self.locked  = defaultdict(list), defaultdict(int)
+        self.Tree, self.locked_nodes  = defaultdict(list), defaultdict(int)
         
         for child in range(1, len(parent)):
-            self.GRAPH[parent[child]].append(child)
+            self.Tree[parent[child]].append(child)
                         
             
     def lock(self, num: int, user: int) -> bool:
-        if not self.locked[num]:        
-            self.locked[num] = user
+        if not self.locked_nodes[num]:        
+            self.locked_nodes[num] = user
             return True
         
         return False
         
     def unlock(self, num: int, user: int) -> bool:
-        if self.locked[num] == user:
-            self.locked[num] = 0
+        if self.locked_nodes[num] == user:
+            self.locked_nodes[num] = 0
             return True
         
         return False
         
-    def dfs(self, num):
+    def unlock_any_descendant(self, num):
         
         flag = False
-        if self.locked[num]:
+        if self.locked_nodes[num]:
             flag = True
-            self.locked[num] = 0
+            self.locked_nodes[num] = 0
                 
-        for adj in self.GRAPH[num]:
-            flag |= self.dfs(adj)
+        for adj in self.Tree[num]:
+            flag |= self.unlock_any_descendant(adj)
             
         return flag
             
         
-    def unlocked_ancestors(self, num):
+    def node_and_ancestors_locked(self, num):
         while num != -1:
-            if self.locked[num]:
-                return False
+            if self.locked_nodes[num]:
+                return True
             
             num = self.parent[num]
             
-        return True
+        return False
             
     def upgrade(self, num: int, user: int) -> bool:
         
-        if not self.unlocked_ancestors(num):
+        if self.node_and_ancestors_locked(num):
             return False
         
-        if self.dfs(num):
+        if self.unlock_any_descendant(num):
             
-            self.locked[num] = user
-            return True
+            return self.lock(num, user)
         
         return False
