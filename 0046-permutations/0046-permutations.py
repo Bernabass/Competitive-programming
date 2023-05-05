@@ -2,21 +2,19 @@ class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:    
         ans = []
         
-        def back_track(used, res):
-            if len(used) == len(nums):
-                
+        def back_track(arr, res):
+            if not nums:
                 ans.append(res.copy())
             
-            for num in nums:
-                if num not in used:
-                    used.add(num)
-                    res.append(num)
-                    back_track(used, res)
-                    used.remove(num)
-                    res.pop()
-                    
+            for idx, num in enumerate(nums):
+                res.append(num)
+                nums.remove(num)
+                back_track(nums, res)
+                nums.insert(idx, num)
+                res.pop()
+                
             return
         
-        back_track(set(), [])
+        back_track(nums, [])
         
         return ans
