@@ -29,11 +29,11 @@ class Solution:
                     destination = roll_die(value)
                     
                     for adj in destination:
-                        if (adj, 0) not in seen:
+                        if adj not in seen:
                             if adj == n**2:
                                 return depth
                             
-                            seen.add((adj, 0))
+                            seen.add(adj)
                             
                             i, j = coordinate(adj)
                             rep = board[i][j]
@@ -41,11 +41,9 @@ class Solution:
                                 next_level.append(adj)
                                 
                             else:
-                                if rep not in seen:
-                                    if rep == n**2:
-                                        return depth
-                                    seen.add((rep, 1))
-                                    next_level.append(rep)
+                                if rep == n**2:
+                                    return depth
+                                next_level.append(rep)
                                     
                 level = next_level
                 
