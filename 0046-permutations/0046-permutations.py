@@ -1,14 +1,22 @@
 class Solution:
-    def permute(self, nums: List[int]) -> List[List[int]]:            
-        res = []
-        def back_track(path, num):
-            if not num:
-                res.append(path)   
-                return
+    def permute(self, nums: List[int]) -> List[List[int]]:    
+        ans = []
+        
+        def back_track(used, res):
+            if len(used) == len(nums):
+                
+                ans.append(res.copy())
             
-            for i in range(len(num)):
-                back_track(path + [num[i]], num[:i] + num[i+1:]) 
+            for num in nums:
+                if num not in used:
+                    used.add(num)
+                    res.append(num)
+                    back_track(used, res)
+                    used.remove(num)
+                    res.pop()
+                    
+            return
         
-        back_track([], nums)
+        back_track(set(), [])
         
-        return res
+        return ans
