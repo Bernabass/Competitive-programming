@@ -3,7 +3,6 @@ class Solution:
         if n == 1:
             return 0
 
-        
         level, seen = [(0, 1)], {(0, 1)}
         depth = 0
 
