@@ -13,15 +13,12 @@ class Solution:
         prev, min_diff = None, float("inf")
         for k in range(left, n):
             if is_prime[k]:
-                if not prev:
-                    prev = k
-                    
-                else:
+                if prev:
                     curr_diff = k - prev
                     if curr_diff < min_diff:
                         ans = [prev, k]
                         min_diff = curr_diff
                         
-                    prev = k
+                prev = k
                                  
         return ans
