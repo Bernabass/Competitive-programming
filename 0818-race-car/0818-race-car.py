@@ -1,6 +1,6 @@
 class Solution:
     def racecar(self, target: int) -> int:
-        instruction = ("accelerate", "reverse")
+        instruction = ("A", "R")
         level, seen = [(0, 1)], {(0, 1)}
         depth = 0
         
@@ -10,7 +10,7 @@ class Solution:
             
             for position, speed in level:
                 for command in instruction:
-                    if (position + speed, 2*speed) not in seen and command == "accelerate":
+                    if (position + speed, 2*speed) not in seen and command == "A":
                         new_position = position + speed
                         new_speed = 2*speed
                         
@@ -20,8 +20,10 @@ class Solution:
                         next_level.append((new_position, new_speed))
                         seen.add((new_position, new_speed))
                         
-                    elif (position, -1*(speed//abs(speed))) not in seen and command == "reverse":
-                        next_level.append((position, -1*(speed//abs(speed))))
-                        seen.add((position, -1*(speed//abs(speed))))
+                    elif (position, -1*(speed//abs(speed))) not in seen and command == "R":
+                        new_speed = -1*(speed//abs(speed))
+                        
+                        next_level.append((position, new_speed))
+                        seen.add((position, new_speed))
                         
             level = next_level
