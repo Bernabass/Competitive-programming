@@ -12,7 +12,6 @@ class Solution:
                 
         level, seen = [(source, 0)], {source}
         
-        
         while level:
             next_level = []
             
@@ -27,7 +26,4 @@ class Solution:
                         
             level = next_level
             
-            
-        return -1
-                    
-                    
+        return -1          
