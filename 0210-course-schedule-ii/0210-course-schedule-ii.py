@@ -1,28 +1,36 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        GRAPH, INDEGREE = defaultdict(list), defaultdict(int)
-        order, level = [], []
+        GRAPH = defaultdict(list)
+        order = []
+        black, grey = set(), set()
         
         for child, parent in prerequisites:
             GRAPH[parent].append(child)
-            INDEGREE[child] += 1
-                           
-        for node in range(numCourses):
-            if not(INDEGREE[node]):
-                level.append(node)
-         
-        while level:
-            next_level = []
 
-            for node in level:
-                order.append(node)
-                for adj in GRAPH[node]:
-                    if INDEGREE[adj]:
-                        INDEGREE[adj] -= 1
-                        
-                        if not (INDEGREE[adj]):
-                            next_level.append(adj)
-                            
-            level = next_level
+        def dfs(node): 
+            grey.add(node)
+            cycle = False
             
-        return order if len(order) == numCourses else []
+            for adj in GRAPH[node]:
+                if adj in grey:
+                    return True
+                    
+                elif adj not in black:
+                    cycle |= dfs(adj)
+                          
+            grey.remove(node)       
+            black.add(node)
+            order.append(node)
+            
+            return cycle
+        
+        for node in range(numCourses):
+            if node not in black:
+                cycle = dfs(node)
+                if cycle:
+                    return []
+                
+        return reversed(order)
+                    
+                    
+                    
