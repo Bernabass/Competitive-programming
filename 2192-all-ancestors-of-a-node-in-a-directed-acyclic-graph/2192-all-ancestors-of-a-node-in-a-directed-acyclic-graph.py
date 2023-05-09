@@ -7,8 +7,7 @@ class Solution:
             GRAPH[dest].append(src)
 
         def bfs(node):
-            level = [node]
-            seen = 1 << node
+            level, seen = [node], 1 << node
 
             while level:
                 next_level = []
@@ -18,16 +17,12 @@ class Solution:
                         if not seen & (1 << adj):
                             answer[node].add(adj)
                             seen |= 1 << adj
-
-                            if answer[adj]:
-                                answer[node] |= answer[adj]
-
-                            else:
-                                next_level.append(adj)
+                            answer[node] |= answer[adj]
+                            next_level.append(adj)
 
                 level = next_level
 
         for node in range(n):
             bfs(node)
             
-        return [sorted(list(curr)) for curr in answer]
+        return map(sorted, answer)
