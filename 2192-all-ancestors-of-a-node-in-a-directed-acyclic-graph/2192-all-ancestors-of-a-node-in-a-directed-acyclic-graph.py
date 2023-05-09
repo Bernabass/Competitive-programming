@@ -7,20 +7,21 @@ class Solution:
             GRAPH[dest].append(src)
 
         def bfs(node):
-            level, seen = [node], 1 << node
+            queue, seen = deque([node]), 1 << node
 
-            while level:
-                next_level = []
+            while queue:
+                curr = queue.popleft()
 
-                for curr in level:
-                    for adj in GRAPH[curr]:
-                        if not seen & (1 << adj):
-                            answer[node].add(adj)
-                            seen |= 1 << adj
+                for adj in GRAPH[curr]:
+                    if not seen & (1 << adj):
+                        answer[node].add(adj)
+                        seen |= 1 << adj
+
+                        if answer[adj]:
                             answer[node] |= answer[adj]
-                            next_level.append(adj)
 
-                level = next_level
+                        else:
+                            queue.append(adj)
 
         for node in range(n):
             bfs(node)
