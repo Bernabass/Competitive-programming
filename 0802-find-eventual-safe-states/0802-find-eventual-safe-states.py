@@ -1,22 +1,22 @@
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
         n, safe_nodes = len(graph), []
-        info = ["unvisited"] * n
+        info = defaultdict(int)
         
         def dfs(node):
-            if info[node] == "safe":
+            if info[node] == 1:
                 return False
             
-            elif info[node] == "unsafe":
+            elif info[node] == 2:
                 return True
             
-            info[node] = "unsafe"
+            info[node] = 2
             
             for adj in graph[node]:
                 if dfs(adj):
                     return True
                 
-            info[node] = "safe"
+            info[node] = 1
             
             return False
         
@@ -24,4 +24,4 @@ class Solution:
             if not dfs(node):
                 safe_nodes.append(node)
                 
-        return safe_nodes      
+        return safe_nodes
