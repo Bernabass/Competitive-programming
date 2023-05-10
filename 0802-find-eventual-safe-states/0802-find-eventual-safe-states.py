@@ -1,27 +1,27 @@
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
-        GRAPH, INDEGREE = defaultdict(list), defaultdict(int)
-        safe_nodes, queue = [], deque()
+        n, safe_nodes = len(graph), []
+        info = ["unvisited"] * n
         
-        for node, children in enumerate(graph):
-            INDEGREE[node] += len(children)
-            for adj in children:
-                GRAPH[adj].append(node)
+        def dfs(node):
+            if info[node] == "safe":
+                return False
             
-            if not children:
-                queue.append(node)
+            elif info[node] == "unsafe":
+                return True
+            
+            info[node] = "unsafe"
+            
+            for adj in graph[node]:
+                if dfs(adj):
+                    return True
                 
-        while queue:
-            node = queue.popleft()
-            safe_nodes.append(node)
+            info[node] = "safe"
             
-            for adj in GRAPH[node]:
-                if INDEGREE[adj]:
-                    INDEGREE[adj] -= 1
-                    
-                    if not INDEGREE[adj]:
-                        queue.append(adj)
-                        
-        return sorted(safe_nodes)
-            
+            return False
         
+        for node in range(n):
+            if not dfs(node):
+                safe_nodes.append(node)
+                
+        return safe_nodes      
