@@ -1,7 +1,7 @@
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
         n, safe_nodes = len(graph), []
-        info = defaultdict(int)
+        info = [0] * n
         
         def dfs(node):
             if info[node] == 1:
