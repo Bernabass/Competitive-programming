@@ -30,7 +30,7 @@ class LockingTree:
             self.locked_nodes[num] = 0
                 
         for adj in self.Tree[num]:
-            flag |= self.unlock_any_descendant(adj)
+            flag = self.unlock_any_descendant(adj) or flag
             
         return flag
             
