@@ -1,31 +1,29 @@
 class Solution:
     def longestCycle(self, edges: List[int]) -> int:
-        self.ans = -1
-        
-        arr = [0] * len(edges)
-        prev_visited = set()
+        self.ans, n = -1, len(edges)
+        arr, colors = [0]*n, [0]*n
+
         
         def dfs(node, val):
-            if node in prev_visited:
+            if colors[node] == 2:
                 return
             
-            
             arr[node] = val
-            visited.add(node)
-            prev_visited.add(node)
+            colors[node] = 1
             child = edges[node]
             
-            if child in visited:
+            if child != -1 and colors[child] == 1:
                 self.ans = max(self.ans, val - arr[child] + 1)
+                colors[node] = 2
                 return 
                 
             if child != -1:
                 dfs(child, val + 1)
-                
-                
+            
+            colors[node] = 2
+                 
         for num in range(len(edges)):
-            if num not in prev_visited:
-                visited = set()
+            if not colors[num]:
                 dfs(num, 1)
-                
+           
         return self.ans
