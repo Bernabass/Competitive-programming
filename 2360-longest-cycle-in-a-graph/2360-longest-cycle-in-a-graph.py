@@ -1,28 +1,37 @@
 class Solution:
     def longestCycle(self, edges: List[int]) -> int:
-        self.ans, n = -1, len(edges)
-        arr = [0]*n
+        n = len(edges)
+        visited = [False]*n
+        indegree = [0]*n
 
-        def dfs(node, val):
-            if arr[node] == -1:
-                return
-            
-            arr[node] = val
-            child = edges[node]
-            
-            if child != -1 and arr[child] not in {0, -1}:
-                self.ans = max(self.ans, val - arr[child] + 1)
-                arr[node] = -1
-                
-                return 
-                
-            if child != -1:
-                dfs(child, val + 1)
-            
-            arr[node] = -1
-                 
-        for num in range(len(edges)):
-            if not arr[num]:
-                dfs(num, 1)
-           
-        return self.ans
+        for edge in edges:
+            if edge != -1:
+                indegree[edge] += 1
+        
+        q = collections.deque()
+        for i in range(n):
+            if not indegree[i]:
+                q.append(i)
+
+        while q:
+            node = q.popleft()
+            visited[node] = True
+            neighbor = edges[node]
+            if neighbor != -1:
+                indegree[neighbor] -= 1
+                if indegree[neighbor] == 0:
+                    q.append(neighbor)
+
+        ans = -1
+        for i in range(n):
+            if not visited[i]:
+                neighbor = edges[i]
+                count = 1
+                visited[i] = True
+
+                while neighbor != i:
+                    visited[neighbor] = True
+                    count += 1
+                    neighbor = edges[neighbor]
+                ans = max(ans, count)
+        return ans
