@@ -1,66 +1,55 @@
 class Solution:
     def sortItems(self, n: int, m: int, group: List[int], beforeItems: List[List[int]]) -> List[int]:
-        group_GRAPH = {}
-        group_INDEGREE = {}
-        child_GRAPH = {}
-        child_INDEGREE = {}
+        group_GRAPH = defaultdict(list)
+        group_INDEGREE = defaultdict(int)
+        child_GRAPH = defaultdict(lambda: defaultdict(list))
+        child_INDEGREE = defaultdict(int)
 
         for item, squad in enumerate(group):
-            if squad == -1:
-                group[item] = 30001 + item
-                squad = 30001 + item
+            squad = squad if squad != -1 else 30001 + item
+            group[item] = squad
 
-            group_GRAPH.setdefault(squad, [])
-            child_GRAPH.setdefault(squad, {}).setdefault(item, [])
+            group_GRAPH[squad].extend([])
+            child_GRAPH[squad][item].extend([])
 
             for prev in beforeItems[item]:
                 if group[prev] != squad:
-                    if group[prev] == -1:
-                        group[prev] = 30001 + prev
-
-                    group_GRAPH.setdefault(group[prev], []).append(squad)
-                    group_INDEGREE.setdefault(squad, 0)
+                    group[prev] = group[prev] if group[prev] != -1 else 30001 + prev
+                    group_GRAPH[group[prev]].append(squad)
                     group_INDEGREE[squad] += 1
-
                 else:
-                    child_GRAPH.setdefault(squad, {}).setdefault(prev, []).append(item)
-                    child_INDEGREE.setdefault(item, 0)
+                    child_GRAPH[squad][prev].append(item)
                     child_INDEGREE[item] += 1
 
         def top_sort(graph, indegree):
-            queue = []
-            n = len(graph.keys())
-            order = []
+            queue, order = deque(), []
 
             for node in graph.keys():
-                if not indegree.get(node, 0):
+                if not indegree[node]:
                     queue.append(node)
 
             while queue:
-                node = queue.pop(0)
+                node = queue.popleft()
                 order.append(node)
 
-                for adj in graph.get(node, []):
-                    if indegree.get(adj, 0):
-                        indegree[adj] -= 1
+                for adj in graph[node]:
+                    indegree[adj] -= 1
 
-                        if not indegree[adj]:
-                            queue.append(adj)
+                    if not indegree[adj]:
+                        queue.append(adj)
 
-            return [] if len(order) != n else order
+            return [] if len(order) != len(graph) else order
 
-        check = top_sort(group_GRAPH, group_INDEGREE)
+        group_acyclic = top_sort(group_GRAPH, group_INDEGREE)
+        res = []
 
-        if check:
-            for idx, val in enumerate(check):
-                ans = top_sort(child_GRAPH.get(val, {}), child_INDEGREE)
-
+        if group_acyclic:
+            for squad in group_acyclic:
+                ans = top_sort(child_GRAPH[squad], child_INDEGREE)
+                
                 if not ans:
-                    return []
+                    return
+                
+                res.extend(ans)
 
-                else:
-                    check[idx] = ans
-
-            return itertools.chain(*check)
-
-        return []
+        return res
