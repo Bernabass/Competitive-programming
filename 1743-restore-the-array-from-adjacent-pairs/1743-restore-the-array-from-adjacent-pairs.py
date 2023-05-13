@@ -7,13 +7,11 @@ class Solution:
             GRAPH[node].append(adj)
             GRAPH[adj].append(node)
                         
-            
         for node, adj in GRAPH.items():
             if len(adj) == 1:
                 queue.append(node)
                 break
-                
-                
+                 
         while queue:
             node = queue.popleft()
             original.append(node)
