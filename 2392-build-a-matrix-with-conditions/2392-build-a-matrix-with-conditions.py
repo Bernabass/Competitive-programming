@@ -1,21 +1,21 @@
 class Solution:
     def buildMatrix(self, k: int, rowConditions: List[List[int]], colConditions: List[List[int]]) -> List[List[int]]:
-        row_GRAPH, row_INDEGREE = defaultdict(list), [0]*(k)
-        col_GRAPH, col_INDEGREE = defaultdict(list), [0]*(k)
+        row_GRAPH, row_INDEGREE = defaultdict(list), defaultdict(int)
+        col_GRAPH, col_INDEGREE = defaultdict(list), defaultdict(int)
         ans = [[0]*k for _ in range(k)]
         
         for node, adj in rowConditions:
-            row_GRAPH[node-1].append(adj-1)
-            row_INDEGREE[adj-1] += 1
+            row_GRAPH[node].append(adj)
+            row_INDEGREE[adj] += 1
             
         for node, adj in colConditions:
-            col_GRAPH[node-1].append(adj-1)
-            col_INDEGREE[adj-1] += 1
+            col_GRAPH[node].append(adj)
+            col_INDEGREE[adj] += 1
             
         def top_sort(graph, indegree):
             queue, order = deque(), {}
             count = 0
-            for node in range(k):
+            for node in range(1, k+1):
                 if not indegree[node]:
                     queue.append(node)
               
@@ -41,8 +41,8 @@ class Solution:
         if len(col_order) != k:
             return []
         
-        for node in range(k):
+        for node in range(1, k+1):
             row, col = row_order[node], col_order[node]
-            ans[row][col] = node + 1
+            ans[row][col] = node
             
         return ans
