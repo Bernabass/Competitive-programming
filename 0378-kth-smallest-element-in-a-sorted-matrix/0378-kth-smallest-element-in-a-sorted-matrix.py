@@ -5,7 +5,7 @@ class Solution:
 
         while low <= high:
             mid = (low + high) // 2
-            count = self.countLessOrEqual(matrix, mid)
+            count = self.prev_smallers(matrix, mid)
 
             if count < k:
                 low = mid + 1
@@ -15,7 +15,7 @@ class Solution:
                 
         return low
 
-    def countLessOrEqual(self, matrix, mid):
+    def prev_smallers(self, matrix, mid):
         count = row = 0
         col = len(matrix) - 1
 
