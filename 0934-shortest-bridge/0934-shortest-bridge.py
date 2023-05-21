@@ -56,4 +56,4 @@ class Solution:
         
         bfs([picker(n)], 0)
         
-        return bfs(edges, 1)                    
+        return bfs(edges, 1)               
