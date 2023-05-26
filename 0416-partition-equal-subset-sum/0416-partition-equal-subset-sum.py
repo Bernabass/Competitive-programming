@@ -1,12 +1,11 @@
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
         total = sum(nums)
-        nums.sort()
-        
         if total % 2:
             return False
         
         target, n = total // 2, len(nums)
+        nums.sort()
         
         @cache
         def back_track(idx, curr_sum):
