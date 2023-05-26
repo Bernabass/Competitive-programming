@@ -5,7 +5,7 @@ class Solution:
             return False
         
         target, n = total // 2, len(nums)
-        nums.sort(reverse = True)
+        nums.sort()
         
         @cache
         def back_track(idx, curr_sum):
