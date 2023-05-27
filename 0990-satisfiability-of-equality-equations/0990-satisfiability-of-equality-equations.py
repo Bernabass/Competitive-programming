@@ -50,26 +50,20 @@ class UnionFind:
 class Solution:
     def equationsPossible(self, equations: List[str]) -> bool:
         equals = UnionFind(26)
-        temp = []
+        
         for i in range(97, 123):
             equals.add(chr(i))
-            
-        for x in equations:
-            if x[1] == "=":
-                temp.append(x)
-                
-        for x in equations:
-            if x[1] != "=":
-                temp.append(x)
  
-        
-        for string in temp:
+        for string in equations:
             x, sign, y = string[0], string[1], string[3]
             
-            if sign == "=":
+            if string[1] == "=":
                 equals.union(x, y)
                 
-            else:
+        for string in equations:
+            x, sign, y = string[0], string[1], string[3]
+            
+            if string[1] != "=":
                 if equals.is_connected(x, y):
                     return False
                 
