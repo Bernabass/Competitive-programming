@@ -1,15 +1,11 @@
+class parent(defaultdict):
+    def __missing__(self, key):
+        return key
 class UnionFind:
-    def __init__(self, n):
-        self.parent = {}
-        self.rank, self.size = {}, {}
-        self.count = n
+    def __init__(self):
+        self.parent = parent()
+        self.rank, self.size = defaultdict(int), defaultdict(lambda:1)
         
-    def add(self, x):
-        if x not in self.parent:
-            self.parent[x] = x
-            self.rank[x] = 0
-            self.size[x] = 1
-
     def find(self, x):
         original = x
         while self.parent[x] != x:
@@ -39,28 +35,18 @@ class UnionFind:
             self.size[root_x] += self.size[root_y]
             self.rank[root_x] += 1
         
-        self.count -= 1
-     
-    def is_connected(self, x, y):
+    def connected(self, x, y):
         return self.find(x) == self.find(y)   
     
     def count(self):
-        return self.count
+        
+        return len({self.find(x) for x in list(self.parent)})
 
 class Solution:
     def removeStones(self, stones: List[List[int]]) -> int:
-        UF = {}
-        def find(x):
-            if x != UF[x]:
-                UF[x] = find(UF[x])
-            return UF[x]
-        def union(x, y):
-            UF.setdefault(x, x)
-            UF.setdefault(y, y)
-            UF[find(x)] = find(y)
-
-        for i, j in stones:
-            union(i, ~(j))
-        return len(stones) - len({find(x) for x in UF})
+        uf = UnionFind()
         
-        
+        for row, col in stones:
+            uf.union(row, str(col))
+            
+        return len(stones) - uf.count()
