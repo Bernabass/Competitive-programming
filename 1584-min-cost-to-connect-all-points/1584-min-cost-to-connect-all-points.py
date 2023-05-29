@@ -42,19 +42,21 @@ class UnionFind:
         return len({self.find(x) for x in list(self.parent)})
 class Solution:
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
-        output = 0
-        currPoint = points.pop()
-        paths = {tuple(p): float('inf') for p in points}
-        while paths:
-            currMin = float('inf')
-            for pt, val in paths.items():
-                dist = abs(pt[0] - currPoint[0]) + abs(pt[1] - currPoint[1])
-                if dist < val:
-                    paths[pt] = dist
-                    val = paths[pt]
-                if val < currMin:
-                    currMin = val
-                    nextPt = pt
-            output += paths.pop(nextPt)
-            currPoint = nextPt
-        return output
+        heap, n = [], len(points)
+        min_cost = 0
+        uf = UnionFind()
+        
+        for i in range(n):
+            for j in range(i+1, n):
+                xi, yi = points[i]
+                xj, yj = points[j]
+                dist = abs(xi - xj) + abs(yi - yj)
+                heappush(heap, (dist, (xi, yi), (xj, yj)))
+                
+        while heap:
+            dist, point1, point2 = heappop(heap)
+            if not uf.connected(point1, point2):
+                min_cost += dist
+                uf.union(point1, point2)
+                
+        return min_cost
