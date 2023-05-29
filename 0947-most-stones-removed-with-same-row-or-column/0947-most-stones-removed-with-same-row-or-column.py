@@ -49,16 +49,18 @@ class UnionFind:
 
 class Solution:
     def removeStones(self, stones: List[List[int]]) -> int:
-        n = len(stones)
-        un = UnionFind(n)
+        UF = {}
+        def find(x):
+            if x != UF[x]:
+                UF[x] = find(UF[x])
+            return UF[x]
+        def union(x, y):
+            UF.setdefault(x, x)
+            UF.setdefault(y, y)
+            UF[find(x)] = find(y)
+
+        for i, j in stones:
+            union(i, str(j))
+        return len(stones) - len({find(x) for x in UF})
         
-        for st in stones:
-            if tuple(st) not in un.parent:
-                un.add(tuple(st))
-            
-            for prev in un.parent:
-                if prev[0] == st[0] or prev[1] == st[1]:
-                    un.union(tuple(st), tuple(prev))
-        
-        return n - un.count
         
