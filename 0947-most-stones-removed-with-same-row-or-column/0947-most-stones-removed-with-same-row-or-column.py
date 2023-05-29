@@ -60,7 +60,7 @@ class Solution:
             UF[find(x)] = find(y)
 
         for i, j in stones:
-            union(i, str(j))
+            union(i, ~(j))
         return len(stones) - len({find(x) for x in UF})
         
         
