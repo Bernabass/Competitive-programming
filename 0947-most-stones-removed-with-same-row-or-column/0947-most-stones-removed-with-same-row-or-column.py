@@ -45,8 +45,7 @@ class UnionFind:
 class Solution:
     def removeStones(self, stones: List[List[int]]) -> int:
         uf = UnionFind()
-        
         for row, col in stones:
-            uf.union(row, str(col))
+            uf.union(row, ~col)
             
         return len(stones) - uf.count()
