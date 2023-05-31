@@ -1,7 +1,6 @@
 class Solution:
     def punishmentNumber(self, n: int) -> int:
         ans = 0
-        @lru_cache(None)
         def back_track(idx, prev, target, s):
             if idx == len(s) and prev == target:
                 return True
