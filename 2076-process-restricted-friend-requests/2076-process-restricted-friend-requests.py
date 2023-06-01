@@ -1,43 +1,69 @@
+class my_dict(defaultdict):
+    def __missing__(self, key):
+        return key
+class UnionFind:
+    def __init__(self):
+        self.parent = my_dict()
+        self.rank, self.size = defaultdict(int), defaultdict(lambda:1)
+        
+    def find(self, x):
+        original = x
+        while self.parent[x] != x:
+            x = self.parent[x]
+
+        while self.parent[original] != original:
+            original = self.parent[original]
+            self.parent[original] = x
+
+        return x
+    
+    def find2(self, x):
+        while self.parent[x] != x:
+            x = self.parent[x]
+        return x 
+
+    def union(self, x, y):
+        root_x = self.find(x)
+        root_y = self.find(y)
+
+        if root_x == root_y:
+            return
+
+        if self.rank[root_x] < self.rank[root_y]:
+            self.parent[root_x] = root_y
+            self.size[root_y] += self.size[root_x]
+        elif self.rank[root_x] > self.rank[root_y]:
+            self.parent[root_y] = root_x
+            self.size[root_x] += self.size[root_y]
+        else:
+            self.parent[root_y] = root_x
+            self.size[root_x] += self.size[root_y]
+            self.rank[root_x] += 1
+        
+    def connected(self, x, y):
+        return self.find(x) == self.find(y)   
+    
+    def count(self):
+        return len({self.find(x) for x in list(self.parent)})
+    
+    def setter(self, x, par):
+        self.parent[x] = par
+
 class Solution:
     def friendRequests(self, n: int, restrictions: List[List[int]], requests: List[List[int]]) -> List[bool]:
-        parents = [i for i in range(n)]
-        ranks = [0] * n
-        forbidden = collections.defaultdict(set)
-        for i, j in restrictions:
-            forbidden[i].add(j)
-            forbidden[j].add(i)
         
-        def find(i):
-            if i != parents[i]:
-                parents[i] = find(parents[i])
-            return parents[i]
+        uf = UnionFind()
+        ans = [True] * len(requests)
         
-        def union(p1, p2):
-            if ranks[p1] > ranks[p2]:
-                parents[p2] = p1
-            elif ranks[p1] < ranks[p2]:
-                parents[p1] = p2
-                p1, p2 = p2, p1
-            else:
-                ranks[p1] += 1
-                parents[p2] = p1
-                
-            forbidden[p1] |= forbidden[p2]
-            for i in forbidden[p2]:
-                forbidden[i].remove(p2)
-                forbidden[i].add(p1)
-            del forbidden[p2]
-        
-        ans = []
-        for i, j in requests:
-            p1 = find(i)
-            p2 = find(j)
-            if p1 == p2:
-                ans.append(True)         
-            elif p2 in forbidden[p1]:
-                ans.append(False)
-            else:
-                union(p1, p2)
-                ans.append(True)
-
+        for idx, (a, b) in enumerate(requests):
+            prev_a, prev_b = uf.find(a), uf.find(b)
+            uf.union(a, b)
+            
+            for i, j in restrictions:
+                if uf.find2(i) == uf.find2(j):
+                    uf.setter(prev_a, prev_a)
+                    uf.setter(prev_b, prev_b)
+                    ans[idx] = False
+                    break
+            
         return ans
