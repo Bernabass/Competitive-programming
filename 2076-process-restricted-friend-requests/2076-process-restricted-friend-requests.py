@@ -46,8 +46,8 @@ class UnionFind:
     def count(self):
         return len({self.find(x) for x in list(self.parent)})
     
-    def setter(self, x, par):
-        self.parent[x] = par
+    def setter(self, x):
+        self.parent[x] = x
 
 class Solution:
     def friendRequests(self, n: int, restrictions: List[List[int]], requests: List[List[int]]) -> List[bool]:
@@ -61,8 +61,8 @@ class Solution:
             
             for i, j in restrictions:
                 if uf.find2(i) == uf.find2(j):
-                    uf.setter(prev_a, prev_a)
-                    uf.setter(prev_b, prev_b)
+                    uf.setter(prev_a)
+                    uf.setter(prev_b)
                     ans[idx] = False
                     break
             
