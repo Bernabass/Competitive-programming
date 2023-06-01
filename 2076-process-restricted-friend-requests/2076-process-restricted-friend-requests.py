@@ -1,38 +1,43 @@
-class UnionFind2076:
-    def __init__(self, size, restrictions):
-        self.parent = [i for i in range(size)]
-        self.restrictions = [0] * size
-        self.all = [(1<<i) for i in range(size)]
-        for a, b in restrictions:
-            self.restrictions[a] |= (1<<b)
-            self.restrictions[b] |= (1<<a)
-
-    def find(self, n):
-        m = n
-        while self.parent[m] != m:
-            m = self.parent[m]
-        while self.parent[n] != m:
-            old_parent = self.parent[n]
-            self.parent[n] = m
-            n = old_parent
-        return m
-
-    def union(self, m, n):
-        root_m, root_n = self.find(m), self.find(n)
-        if root_m == root_n:
-            return True
-        if self.restrictions[root_m] & self.all[root_n]:
-            return False
-        self.parent[root_m] = root_n
-        self.all[root_n] |= self.all[root_m]
-        self.restrictions[root_n] |= self.restrictions[root_m]
-        return True
-
 class Solution:
-    #2076
-    def friendRequests(self, n: int, restrictions, requests):
-        uf = UnionFind2076(n, restrictions)
-        res = []
-        for a,b in requests:
-            res.append(uf.union(a,b))
-        return res
+    def friendRequests(self, n: int, restrictions: List[List[int]], requests: List[List[int]]) -> List[bool]:
+        parents = [i for i in range(n)]
+        ranks = [0] * n
+        forbidden = collections.defaultdict(set)
+        for i, j in restrictions:
+            forbidden[i].add(j)
+            forbidden[j].add(i)
+        
+        def find(i):
+            if i != parents[i]:
+                parents[i] = find(parents[i])
+            return parents[i]
+        
+        def union(p1, p2):
+            if ranks[p1] > ranks[p2]:
+                parents[p2] = p1
+            elif ranks[p1] < ranks[p2]:
+                parents[p1] = p2
+                p1, p2 = p2, p1
+            else:
+                ranks[p1] += 1
+                parents[p2] = p1
+                
+            forbidden[p1] |= forbidden[p2]
+            for i in forbidden[p2]:
+                forbidden[i].remove(p2)
+                forbidden[i].add(p1)
+            del forbidden[p2]
+        
+        ans = []
+        for i, j in requests:
+            p1 = find(i)
+            p2 = find(j)
+            if p1 == p2:
+                ans.append(True)         
+            elif p2 in forbidden[p1]:
+                ans.append(False)
+            else:
+                union(p1, p2)
+                ans.append(True)
+
+        return ans
