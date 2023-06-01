@@ -11,11 +11,16 @@ class UnionFind:
         while self.parent[x] != x:
             x = self.parent[x]
 
-        # while self.parent[original] != original:
-        #     original = self.parent[original]
-        #     self.parent[original] = x
+        while self.parent[original] != original:
+            original = self.parent[original]
+            self.parent[original] = x
 
         return x
+    
+    def find2(self, x):
+        while self.parent[x] != x:
+            x = self.parent[x]
+        return x 
 
     def union(self, x, y):
         root_x = self.find(x)
@@ -55,7 +60,7 @@ class Solution:
             uf.union(a, b)
             
             for i, j in restrictions:
-                if uf.connected(i, j):
+                if uf.find2(i) == uf.find2(j):
                     uf.setter(prev_a, prev_a)
                     uf.setter(prev_b, prev_b)
                     ans[idx] = False
