@@ -1,11 +1,17 @@
 class Solution:
     def maximumElementAfterDecrementingAndRearranging(self, arr: List[int]) -> int:
-        arr.sort()
-        n = len(arr)
-        arr[0] = 1
+        freq = Counter(arr)
+        can_change = sum(num > len(arr) for num in arr)
+        n = ans = len(arr)
         
-        for i in range(1, n):
-            if arr[i] - arr[i-1] > 1:
-                arr[i] = arr[i-1] + 1
-                
-        return arr[-1]
+        for i in range(n, 0, -1):
+            if not freq[i]:
+                if can_change: 
+                    can_change -= 1               
+                else: 
+                    ans -= 1
+
+            else:
+                can_change += freq[i] - 1
+            
+        return ans
