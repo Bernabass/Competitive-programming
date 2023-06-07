@@ -1,22 +1,25 @@
 class Solution:
     def prevPermOpt1(self, arr: List[int]) -> List[int]:
+        ind = len(arr)
         
-        prev_arr = []
-        ind_hash = defaultdict(int)
-        
-        for i in range(len(arr) - 1, -1, -1):
-            ind = bisect.bisect_left(prev_arr, arr[i])
-            if ind != 0:
-                var = ind_hash[prev_arr[ind - 1]] 
-                arr[i], arr[var] = arr[var], arr[i]
+        for i in range(len(arr) - 2, -1, -1):
+            if arr[i] > arr[i + 1]:
+                ind = i
                 break
+        if ind == len(arr):
+            return arr
+        
+        change = ind + 1
+        prev = arr[ind + 1]
+        for i in range(ind + 1, len(arr)):
+            if arr[i] > prev and arr[i] < arr[ind]:
+                change = i
                 
-            bisect.insort(prev_arr, arr[i])
-            ind_hash[arr[i]] = i
-            
+        arr[ind], arr[change] = arr[change], arr[ind]
+                
+        
         return arr
             
             
             
-        
         
