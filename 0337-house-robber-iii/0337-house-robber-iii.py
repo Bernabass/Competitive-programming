@@ -6,22 +6,18 @@
 #         self.right = right
 class Solution:
     def rob(self, root: Optional[TreeNode]) -> int:
-        info = defaultdict(list)
         
         def dfs(node):
             if not node:
-                info[node] = [0, 0]
                 return [0, 0]
             
-            if node in info:
-                return info[node]
-            
+            curr = []
             left = dfs(node.left)
             right = dfs(node.right)
             
-            info[node].append(node.val + left[1] + right[1])
-            info[node].append(max(left) + max(right))
+            curr.append(node.val + left[1] + right[1])
+            curr.append(max(left) + max(right))
             
-            return info[node]
+            return curr
         
         return max(dfs(root))
