@@ -43,9 +43,7 @@ class Solution:
                     if adj not in seen:
                         next_level.append(adj)
                         seen.add(adj)
-                
-
-            
+    
             level = next_level
             
         return []
