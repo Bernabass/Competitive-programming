@@ -17,7 +17,7 @@ class Solution:
                     return True
                 
             info[node] = 1
-            
+
             return False
         
         for node in range(n):
