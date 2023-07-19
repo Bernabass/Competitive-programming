@@ -1,29 +1,13 @@
 class Solution:
     def numTilings(self, n: int) -> int:
-        
-        @cache
-        def even(n):
-            if n <= 0:
-                return 0
+        even_2 = odd_2 = 1
+        even_1 = odd_1 = 2
+        mod = 10**9 + 7
+
+        for i in range(3, n + 2):
+            prev_even_1, prev_odd_1 = even_1, odd_1
+            odd_1 += even_1 % mod
+            even_1 += (even_2 + 2 * odd_2) % mod
+            odd_2, even_2 = prev_odd_1, prev_even_1
             
-            if n == 1:
-                return 1
-            
-            if n == 2:
-                return 2
-            
-            
-            return (even(n - 1) + even(n - 2) + 2 * odd(n - 2)) % (10**9 + 7)
-       
-        @cache
-        def odd(n):
-            if n <= 0:
-                return 0
-            
-            if n == 1:
-                return 1
-            
-            
-            return (odd(n - 1) + even(n - 1)) % (10**9 + 7)
-        
-        return even(n)
+        return even_2 % mod
