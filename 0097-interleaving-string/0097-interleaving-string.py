@@ -1,39 +1,22 @@
 class Solution:
     def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
-        n1, n2, n3 = len(s1), len(s2), len(s3)
-        
-        if len(s1) + len(s2) != len(s3):
+        n1, n2 = len(s1), len(s2)
+        if n1 + n2 != len(s3):
             return False
         
         @cache
-        def back_track(idx1, idx2, idx3):
-                     
-            if idx1 == n1 and s2[idx2:] == s3[idx3:]:
-                return True
+        def back_track(i, j):
+            if i == n1 and j == n2:
+                return 1
             
-            if idx2 == n2 and s1[idx1:] == s3[idx3:]:
-                return True
-                        
-        
-            for i in range(idx1, n1):
-                for j in range(idx2, n2):
-                    if s1[idx1:i+1] + s2[idx2:j+1] == s3[idx3:i+j+2]:
-                        if back_track(i+1, j+1, i+j+2):
-                            return True
-                        
-                    else:
-                        break
-                        
-            for i in range(idx2, n2):
-                for j in range(idx1, n1):
-                    if s2[idx2:i+1] + s1[idx1:j+1] == s3[idx3:i+j+2]:
-                        if back_track(j+1, i+1, i+j+2):
-                            return True
-                        
-                    else:
-                        break
-                        
-                        
-            return False
-        
-        return back_track(0, 0, 0)
+            choose_s1 = choose_s2 = 0
+            
+            if i < n1 and s1[i] == s3[i + j]:
+                choose_s1 = back_track(i + 1, j)
+                
+            if j < n2 and s2[j] == s3[i + j]:
+                choose_s2 = back_track(i, j + 1)
+
+            return choose_s1 or choose_s2
+
+        return back_track(0, 0)
