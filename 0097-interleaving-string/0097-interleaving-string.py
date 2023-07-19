@@ -7,9 +7,11 @@ class Solution:
         
         @cache
         def back_track(idx1, idx2, idx3):
-            one, two, three = s1[idx1:], s2[idx2:], s3[idx3:]
                      
-            if one + two == three or two + one == three:
+            if idx1 == n1 and s2[idx2:] == s3[idx3:]:
+                return True
+            
+            if idx2 == n2 and s1[idx1:] == s3[idx3:]:
                 return True
                         
         
