@@ -1,6 +1,5 @@
 class Solution:
     def numRollsToTarget(self, n: int, k: int, target: int) -> int:
-        arr = list(range(1, k + 1))
         
         @cache
         def back_track(total, dice):
@@ -11,7 +10,7 @@ class Solution:
                 return 0
             
             ans = 0
-            for num in arr:
+            for num in range(1, k + 1):
                 ans += back_track(total + num, dice - 1)
             
             
