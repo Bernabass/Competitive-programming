@@ -18,9 +18,6 @@ class Solution:
             sub_tree = back_track(n - 2)
             res = []
             
-            if self.org != n:
-                res = sub_tree.copy()
-            
             for LC, left_tree in sub_tree:
                 for RC, right_tree in sub_tree:
                     CC = LC + RC + 1
@@ -29,8 +26,8 @@ class Solution:
                             res.append(TreeNode(0, left_tree, right_tree))
                               
                         else:
-                            res.append((CC, TreeNode(0, left_tree, right_tree)))
+                            sub_tree.append((CC, TreeNode(0, left_tree, right_tree)))
                 
-            return res
+            return res if self.org == n else sub_tree
         
         return back_track(n)
