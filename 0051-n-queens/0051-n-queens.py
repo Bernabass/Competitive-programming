@@ -25,9 +25,8 @@ class Solution:
                 attacked["RD"][row - col] += 1
                 attacked["LD"][row + col] += 1
                 
-                if back_track(row + 1, grid, attacked):
-                    return False
-                
+                back_track(row + 1, grid, attacked)
+
                 grid[row][col] = "."
                 attacked["R"][row] -= 1
                 attacked["C"][col] -= 1
