@@ -24,7 +24,7 @@ class Solution:
                 else:
                     return mid
             
-            elif time > hour:
+            else:
                 left = mid + 1
                                         
         return -1
