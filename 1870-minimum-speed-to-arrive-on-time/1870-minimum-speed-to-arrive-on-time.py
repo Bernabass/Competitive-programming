@@ -1,7 +1,5 @@
 class Solution:
     def minSpeedOnTime(self, dist: List[int], hour: float) -> int:
-        hour = float(hour)
-        digits = len(str(hour).split(".")[1])
         n = len(dist)
         
         def check(v):
