@@ -9,19 +9,16 @@ class Solution:
                 
             return total >= n * minute
         
-        left = 1
-        right = sum(batteries)
+        left = 0
+        right = sum(batteries) // n + 1
         
         while left <= right:
             mid = (left + right) // 2
             
             if valid(mid):
-                if not valid(mid + 1):
-                    return mid
-                
                 left = mid + 1
                 
             else:
                 right = mid - 1
                 
-        return left
+        return right
