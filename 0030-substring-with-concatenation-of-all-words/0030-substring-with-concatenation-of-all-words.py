@@ -6,7 +6,6 @@ class Solution:
         words = Counter(words)
         ans = []
         
-        @cache
         def IsValid(i, j):
             used = defaultdict(int)
             idx = i
