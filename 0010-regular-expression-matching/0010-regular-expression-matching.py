@@ -15,10 +15,10 @@ class Solution:
             
             
             if j + 1 < np and p[j + 1] == "*":
+                if dp(i, j + 2):
+                    return True
+                
                 if p[j].isalpha():
-                    if dp(i, j + 2):
-                        return True
-
                     for idx in range(i, ns):
                         if s[idx] == p[j]:
                             if dp(idx + 1, j + 2):
@@ -28,16 +28,8 @@ class Solution:
                             break
                     
                 else:
-                    if j + 2 < np:
-                        _next = p[j + 2]
-                        if dp(i, j + 2):
+                    for idx in range(i, ns):
+                        if dp(idx + 1, j + 2):
                             return True
-
-                        for idx in range(i, ns):
-                            if dp(idx + 1, j + 2):
-                                return True
-                       
-                    else:
-                        return True
                     
         return dp(0, 0)        
