@@ -6,9 +6,16 @@ class Solution:
         def dp(idx):
             if idx == n - 1:
                 return True
+            
+            if idx >= n:
+                return "heheh"
                         
             for jump in range(1, nums[idx] + 1):
-                if dp(idx + jump):
+                curr = dp(idx + jump)
+                if curr == "heheh":
+                    return False
+                
+                elif curr:
                     return True
                 
         return dp(0)
