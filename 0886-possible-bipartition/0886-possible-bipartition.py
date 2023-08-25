@@ -6,7 +6,6 @@ class Solution:
             GRAPH[adj].append(node)
             
         for node in range(1, n+1):
-            
             if node not in COLORS:
                 COLORS[node] = 0
                 queue = deque([node])
