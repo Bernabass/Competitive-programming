@@ -4,8 +4,7 @@ class Solution:
         ans = [[0]*n for _ in range(n)]
         i = j = count = 0
         
-        for _ in range(n*n):
-            count += 1
+        for count in range(1, n*n + 1):
             ans[i][j] += count
             flag = False
             for r, c in directions:
@@ -15,6 +14,6 @@ class Solution:
                 else:
                     flag = True
             if flag:
-                directions.append(directions.popleft())
+                directions.rotate(-1)
                       
         return ans
