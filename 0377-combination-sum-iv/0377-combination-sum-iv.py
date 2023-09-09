@@ -1,11 +1,18 @@
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
-        dp = [0]*(target + 1)
-        dp[0] = 1
-
-        for i in range(1, target+1):
+        
+        @cache
+        def back_track(target):
+            if target < 0:
+                return 0
+            
+            if target == 0:
+                return 1
+            
+            count = 0
             for num in nums:
-                if i - num >= 0:
-                    dp[i] += dp[i - num]
-
-        return dp[target]
+                count += back_track(target - num)
+                
+            return count
+        
+        return back_track(target)
