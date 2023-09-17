@@ -9,7 +9,7 @@ class Solution:
 
         while queue:
             curr_node, curr_cost, curr_seen = queue.popleft()
-
+            
             if len(curr_seen) == N:
                 return curr_cost
 
@@ -20,5 +20,5 @@ class Solution:
                 if tuple(next_seen) not in seen[adj]:
                     queue.append((adj, curr_cost + 1, next_seen))
                     seen[adj].add(tuple(next_seen))
-
+                    
         return -1
