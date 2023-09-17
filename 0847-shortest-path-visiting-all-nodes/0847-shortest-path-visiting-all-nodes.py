@@ -3,9 +3,9 @@ class Solution:
         N = len(graph)
         seen, queue = defaultdict(set), deque()
 
-        for i in range(N):
-            seen[i].add(tuple(sorted({i})))
-            queue.append((i, 0, {i}))
+        for node in range(N):
+            seen[node].add(node)
+            queue.append((node, 0, {node}))
 
         while queue:
             curr_node, curr_cost, curr_seen = queue.popleft()
