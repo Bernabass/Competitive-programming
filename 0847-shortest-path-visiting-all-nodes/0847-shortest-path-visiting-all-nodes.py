@@ -17,8 +17,8 @@ class Solution:
                 next_seen = curr_seen.copy()
                 next_seen.add(adj)
 
-                if tuple(sorted(next_seen)) not in seen[adj]:
+                if tuple(next_seen) not in seen[adj]:
                     queue.append((adj, curr_cost + 1, next_seen))
-                    seen[adj].add(tuple(sorted(next_seen)))
+                    seen[adj].add(tuple(next_seen))
 
         return -1
