@@ -3,6 +3,7 @@ class Solution:
         m, n = len(nums1), len(nums2)
         mid = (m + n) // 2 + 1
         prev2 = prev1 = None
+        flag = (m + n) % 2
         i = j = 0
 
         for _ in range(mid):
@@ -16,4 +17,4 @@ class Solution:
                 prev1 = nums2[j]
                 j += 1
         
-        return prev1 if (m + n) % 2 else (prev1 + prev2) / 2
+        return prev1 if flag else (prev1 + prev2) / 2
