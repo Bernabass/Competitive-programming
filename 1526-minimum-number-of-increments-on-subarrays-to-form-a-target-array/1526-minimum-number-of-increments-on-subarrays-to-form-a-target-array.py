@@ -49,8 +49,8 @@ class Solution:
                 return 0
             
             idx = s_tree.query(left, right)
-            left_subarray = do(left, idx - 1, offset - (target[idx] + offset))
-            right_subarray = do(idx + 1, right, offset - (target[idx] + offset))
+            left_subarray = do(left, idx - 1, -target[idx])
+            right_subarray = do(idx + 1, right, -target[idx])
             
             return target[idx] + offset + left_subarray + right_subarray
         
