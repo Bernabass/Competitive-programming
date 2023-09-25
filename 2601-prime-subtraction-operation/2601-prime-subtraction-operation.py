@@ -1,22 +1,16 @@
 class Solution:
     def primeSubOperation(self, nums: List[int]) -> bool:
         
-        def is_prime(n):
-            if n <= 1:
-                return False
-            if n <= 3:
-                return True
-            if n % 2 == 0 or n % 3 == 0:
-                return False
-            i = 5
-            while i * i <= n:
-                if n % i == 0 or n % (i + 2) == 0:
+        def is_prime(x):
+            d = 2
+            while d * d <= x:
+                if x % d == 0:
                     return False
-                i += 6
-            return True
-
+                d += 1
+                
+            return x > 1 and True
+        
         primes = [n for n in range(1, max(nums) + 2) if is_prime(n)]
-        N = len(primes)
         
         def calculate(curr, target):
             left, right = 0, len(primes) - 1
@@ -24,7 +18,7 @@ class Solution:
                 mid = (left + right) // 2
 
                 if curr - primes[mid] > target:
-                    if mid + 1 < N and curr - primes[mid + 1] > target:
+                    if mid + 1 < len(primes) and curr - primes[mid + 1] > target:
                         left = mid + 1
 
                     else:
