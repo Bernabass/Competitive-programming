@@ -23,8 +23,8 @@ class Trie:
     def search(self, word: str) -> bool:
         node = self.root
         
-        for char in word:
-            if char not in node.children:
+        for idx, char in enumerate(word):
+            if idx and not node.is_end or char not in node.children:
                 return False
             
             node = node.children[char]
@@ -47,16 +47,11 @@ class Solution:
         trie = Trie()
         longest_word = ""
         
-        
         for word in words:
             trie.insert(word)
             
         for word in words:
-            for idx in range(len(word)):
-                if not trie.search(word[:idx+1]):
-                    break
-                
-            else:
+            if trie.search(word):
                 if len(word) > len(longest_word):
                     longest_word = word
                     
