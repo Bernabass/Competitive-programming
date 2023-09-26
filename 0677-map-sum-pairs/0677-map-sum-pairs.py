@@ -42,12 +42,12 @@ class MapSum:
     def sum(self, prefix: str) -> int:
         node = self.trie.startsWith(prefix)
             
-        return self.dfs(node) + node.val
+        return self.dfs(node)
             
     def dfs(self, node):        
-        count = 0
+        count = node.val
         for adj in node.children.values():
-            count += adj.val + self.dfs(adj)
+            count += self.dfs(adj)
             
         return count
         
