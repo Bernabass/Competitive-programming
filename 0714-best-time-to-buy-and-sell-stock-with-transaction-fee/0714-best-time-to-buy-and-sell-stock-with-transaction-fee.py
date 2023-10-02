@@ -1,15 +1,20 @@
 class Solution:
     def maxProfit(self, prices: List[int], fee: int) -> int:
-        n = len(prices)
-        if n < 2:
-             return 0
-        ans, min_ = 0, prices[0]
-    
-        for i in range(1, n):
-            if prices[i] < min_:
-                min_ = prices[i]
-            elif prices[i] > min_ + fee:
-                ans += prices[i] - fee - min_
-                min_ = prices[i] - fee
+        N = len(prices)
+        
+        @cache
+        def dp(idx, flag):
+            if idx == N:
+                return 0 
+            
+            not_take = dp(idx + 1, flag)
+            if flag:
+                take =  prices[idx] - fee + dp(idx + 1, 1 - flag)
                 
-        return ans
+            else:
+                take = -prices[idx] + dp(idx + 1, 1 - flag)
+                
+            return max(not_take, take)
+        
+        return dp(0, 0)
+            
