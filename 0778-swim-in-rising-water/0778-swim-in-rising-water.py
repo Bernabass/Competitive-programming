@@ -1,7 +1,10 @@
 class Solution:
     def swimInWater(self, grid: List[List[int]]) -> int:
         n = len(grid)
-        adj = [(0, 1), (0, -1), (1, 0), (-1, 0)]      
+        adj = [(0, 1), (0, -1), (1, 0), (-1, 0)]   
+        
+        def inbound(i, j):
+            return 0 <= i < n and 0 <= j < n
         
         def bfs(time):
             visited = set()
@@ -14,7 +17,7 @@ class Solution:
                 
                 for r, c in adj:
                     i, j = x + r, y + c
-                    if 0 <= i < n and 0 <= j < n and (i, j) not in visited and grid[i][j] <= time:
+                    if inbound(i, j) and (i, j) not in visited and grid[i][j] <= time:
                         visited.add((i, j))
                         queue.append((i, j))
         
