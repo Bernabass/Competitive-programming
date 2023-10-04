@@ -10,8 +10,7 @@ class MyHashMap:
         return self.HashMap[key]
 
     def remove(self, key: int) -> None:
-        if self.HashMap[key] != -1:
-            self.HashMap[key] = -1
+        self.HashMap[key] = -1
 
 
 # Your MyHashMap object will be instantiated and called as such:
