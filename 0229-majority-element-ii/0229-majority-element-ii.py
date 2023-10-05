@@ -1,8 +1,15 @@
 class Solution:
     def majorityElement(self, nums: List[int]) -> List[int]:
-        freq = Counter(nums)
         
-        ans = [key for key, val in freq.items() if val > len(nums) // 3]
+        def find(arr, k):
+            freq = Counter(arr)
+            
+            for num in arr:
+                freq[num] += 1
+                
+                if len(freq) == k:
+                    freq -= Counter(set(freq))
+                    
+            return [num for num in freq if nums.count(num) > len(nums) // k]
         
-        return ans
-    
+        return find(nums, 3)
