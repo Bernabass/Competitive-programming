@@ -7,6 +7,7 @@
 class Solution:
     def flipEquiv(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
         
+        @cache
         def dfs(node1, node2):
             if not(node1 or node2):
                 return True
