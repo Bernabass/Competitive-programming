@@ -2,7 +2,6 @@ class Solution:
     def subStrHash(self, s: str, power: int, modulo: int, k: int, hashValue: int) -> str:
         s = s[::-1]
         N = len(s)
-        end = 0
 
         def convert(char):
             return ord(char) - 96
