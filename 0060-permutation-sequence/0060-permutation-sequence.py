@@ -1,25 +1,16 @@
 class Solution:
     def getPermutation(self, n: int, k: int) -> str:
-        ans = [0]
-        made = []
-        def dfs(arr):
-            if not arr:
-                if ans[0] + 1 == k:
-                    ans[0] = "".join(map(str, made))
-                    return True
-                
-                ans[0] += 1
-                    
-                return False
-            
-            for i, num in enumerate(arr):
-                made.append(num)
-                res = dfs(arr[:i] + arr[i + 1:])
-                if res:
-                    return True
-                
-                made.pop()
-                
-        dfs(list(range(1, n + 1)))
+        nums = list(range(1, n + 1))
+        factorial = defaultdict(lambda : 1)
+        for i in range(1, n):
+            factorial[i] = factorial[i-1] * i 
         
-        return ans.pop()  
+        k -= 1 
+        result = []
+        for i in range(n - 1, -1, -1):
+            index = k // factorial[i] 
+            result.append(str(nums[index]))
+            nums.pop(index) 
+            k = k % factorial[i] 
+            
+        return ''.join(result) 
