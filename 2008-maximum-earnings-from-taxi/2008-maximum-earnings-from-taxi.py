@@ -10,7 +10,7 @@ class Solution:
                 
             start, end, tip = rides[idx]
             no_pick = dp(idx + 1)
-            next_idx = bisect_left(rides, [end, -1, -1])
+            next_idx = bisect_left(rides, [end, -1, -1], idx + 1)
             pick = (end - start + tip) + dp(next_idx)
                 
             return max(pick, no_pick)
