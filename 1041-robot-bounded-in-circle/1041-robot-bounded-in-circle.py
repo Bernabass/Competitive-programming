@@ -10,7 +10,7 @@ class Solution:
         direction = [1, 0]
         coordinate = [0, 0]
         
-        for _ in range(10000):
+        for _ in range(1000):
         
             for char in instructions:
                 if char == "G":
