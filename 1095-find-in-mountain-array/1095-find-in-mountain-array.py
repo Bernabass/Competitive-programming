@@ -41,13 +41,12 @@ class Solution:
             elif get(mid) < target:
                 left = mid + 1
 
-            else:
-                if mid - 1 > -1 and get(mid - 1) == target:
-                    right = mid - 1
+            elif mid - 1 > -1 and get(mid - 1) == target:
+                right = mid - 1
 
-                else:
-                    ans = mid
-                    break
+            else:
+                ans = mid
+                break
 
         if ans != -1:
             return ans
@@ -64,12 +63,11 @@ class Solution:
             elif get(mid) < target:
                 left = mid - 1
 
-            else:
-                if mid + 1 < N and get(mid + 1) == target:
+            elif mid + 1 < N and get(mid + 1) == target:
                     right = mid + 1
 
-                else:
-                    ans = mid
-                    break
+            else:
+                ans = mid
+                break
 
         return ans
