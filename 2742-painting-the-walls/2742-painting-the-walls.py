@@ -1,19 +1,23 @@
 class Solution:
     def paintWalls(self, cost: List[int], time: List[int]) -> int:
-        n = len(time)
-        info = [sum(time[i:]) for i in range(n)]
+        N = len(time)
+        suffix_sum = defaultdict(int)
+        for i in range(N - 2, -1, -1): 
+            suffix_sum[i] = suffix_sum[i + 1] + time[i + 1]
 
         @cache
-        def dp(idx, rem):
-            if idx == n:
-                return 0 if rem >= 0 else inf
-            
-            if rem >= n - idx:
+        def dp(idx, worked):
+            if idx == N:
                 return 0
             
-            if rem + info[idx] < 0:
-                return inf
-
-            return min(dp(idx + 1, rem - 1), cost[idx] + dp(idx + 1, rem + time[idx]))
-
+            if worked >= N - idx:
+                return 0
+            
+            paid = cost[idx] + dp(idx + 1, worked + time[idx])
+            free = inf
+            if worked + suffix_sum[idx] > 0:
+                free = dp(idx + 1, worked - 1)
+        
+            return min(paid, free)
+            
         return dp(0, 0)
