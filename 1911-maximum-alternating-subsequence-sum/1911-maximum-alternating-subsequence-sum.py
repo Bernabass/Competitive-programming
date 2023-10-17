@@ -2,19 +2,11 @@ class Solution:
     def maxAlternatingSum(self, nums: List[int]) -> int:
         N = len(nums)
         
-        @cache
-        def dp(idx, flag):
-            if idx == N:
-                return 0
-            
-            no_pick = dp(idx + 1, flag)
+        no_pick = pick = 0
 
-            if flag:
-                pick = -nums[idx] + dp(idx + 1, 1 - flag)
+        for i in range(N):
+            new_no_pick = max(no_pick, pick + nums[i])
+            new_pick = max(pick, no_pick - nums[i])
+            no_pick, pick = new_no_pick, new_pick
 
-            else:
-                pick = nums[idx] + dp(idx + 1, 1 - flag)
-
-            return max(pick, no_pick)
-        
-        return dp(0, 0)
+        return max(no_pick, pick)
