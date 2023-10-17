@@ -1,21 +1,17 @@
 class Solution:
     def validateBinaryTreeNodes(self, n: int, leftChild: List[int], rightChild: List[int]) -> bool:
-        GRAPH = defaultdict(list)
         memo = defaultdict(int)
         max_count = 0
-        for node in range(n):
-            if leftChild[node] != -1:
-                GRAPH[node].append(leftChild[node])
-            if rightChild[node] != -1:
-                GRAPH[node].append(rightChild[node])
           
-        
         def dfs(node, seen):
             if node in memo:
                 return memo[node]
+            
+            if node == -1:
+                return 0
             seen.add(node)
             count = 1
-            for adj in GRAPH[node]:
+            for adj in [leftChild[node], rightChild[node]]:
                 if adj in seen:
                     return -1
                 
