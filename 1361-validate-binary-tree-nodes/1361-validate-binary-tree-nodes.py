@@ -30,10 +30,10 @@ class Solution:
             return count
         
         for node in range(n):
-            ans = dfs(node, set())
-            if ans == -1:
-                return False
-            
-            max_count = max(ans, max_count)
+            if node not in memo:
+                ans = dfs(node, set())
+                if ans == -1:
+                    return False
+                max_count = max(ans, max_count)
             
         return max_count == n
