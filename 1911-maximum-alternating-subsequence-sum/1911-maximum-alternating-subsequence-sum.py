@@ -7,7 +7,6 @@ class Solution:
             if idx == N:
                 return 0
             
-            pick = no_pick = -inf
             no_pick = dp(idx + 1, flag)
 
             if flag:
