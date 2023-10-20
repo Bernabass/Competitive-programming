@@ -36,11 +36,9 @@ class NestedIterator:
         go(nestedList)
         self.length = len(self.flattend)
 
-    
     def next(self) -> int:
         return self.flattend[self.idx - 1]
 
-        
     def hasNext(self) -> bool:
         self.idx += 1
         return self.idx <= self.length
