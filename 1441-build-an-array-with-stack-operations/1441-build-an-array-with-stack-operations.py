@@ -1,21 +1,18 @@
 class Solution:
     def buildArray(self, target: List[int], n: int) -> List[str]:
         
-        hash_target = set(target)
-        stack = []
+        idx = 0
         operations = []
         
-        for num in range(1, n + 2):
-            if stack and stack[-1] not in hash_target:
-                stack.pop()
+        for num in range(1, target[-1] + 1):
+            operations.append("Push")
+            
+            if num != target[idx]:
                 operations.append("Pop")
                 
-            if stack == target:
-                return operations
-            if num <= n:
-                stack.append(num)
-                operations.append("Push")
-            
+            else:
+                idx += 1
+                
         return operations
         
         """
