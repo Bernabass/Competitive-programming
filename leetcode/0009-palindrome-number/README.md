@@ -2,7 +2,7 @@
 
 **Difficulty:** Easy
 
-**Problem:** [Palindrome Number](https://leetcode.com/problems/palindrome-number)
+**Problem:** [Palindrome Number](https://leetcode.com/problems/palindrome-number/)
 
 ---
 
