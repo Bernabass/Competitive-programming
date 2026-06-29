@@ -1,0 +1,8 @@
+-- Write your PostgreSQL query statement below
+SELECT user_id, ROUND((1.0 * COALESCE(num, 0) / COALESCE(denom, 1)), 2) AS confirmation_rate
+FROM Signups
+LEFT JOIN (
+    SELECT c.user_id, COUNT(*) AS denom, COUNT(*) FILTER (WHERE action = 'confirmed') AS num
+    FROM Confirmations c
+    GROUP BY c.user_id
+) USING (user_id);
