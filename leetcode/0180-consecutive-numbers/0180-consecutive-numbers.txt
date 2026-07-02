@@ -1,0 +1,13 @@
+-- Write your PostgreSQL query statement below
+WITH filtered AS (
+    SELECT 
+        num,
+        LAG(num, 1, 0.2) OVER(ORDER BY id) AS prev,
+        LAG(num, 2, 0.2) OVER(ORDER BY id) AS prev_prev
+
+    FROM Logs
+)
+
+SELECT DISTINCT num AS ConsecutiveNums
+FROM filtered
+WHERE num = prev AND prev = prev_prev;
