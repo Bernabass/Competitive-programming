@@ -2,8 +2,8 @@
 WITH filtered AS (
     SELECT 
         num,
-        LAG(num, 1, 0.2) OVER(ORDER BY id) AS prev,
-        LAG(num, 2, 0.2) OVER(ORDER BY id) AS prev_prev
+        LAG(num, 1) OVER(ORDER BY id) AS prev,
+        LAG(num, 2) OVER(ORDER BY id) AS prev_prev
 
     FROM Logs
 )
